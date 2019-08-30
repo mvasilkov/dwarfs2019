@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "none",
+    "outDir": "./javascript",
+    "rootDir": "./typescript",
+    "strict": true,
+    "newLine": "LF"
+  }
+}
