@@ -1,0 +1,28 @@
+body {
+    background: #fff;
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.58;
+    margin: 0;
+}
+
+b {
+    color: #eb6b6f;
+    font-weight: 700;
+}
+
+canvas {
+    display: block;
+}
+
+h1 {
+    color: #7b9278;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    line-height: 1.04;
+    margin: 0 0 0 -2px;
+    text-shadow: 0 1px 0 #4c625a;
+}
+
+.obj {
+    margin: 40px;
+}
