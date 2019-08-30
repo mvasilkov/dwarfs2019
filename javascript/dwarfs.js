@@ -2,8 +2,9 @@
 /// <reference path="dwarfs.d.ts" />
 const cacheDwarfs = {};
 class Dwarf {
-    constructor(pos) {
-        this.pos = pos;
+    constructor() {
+        this.pos = 0;
+        this.prevPos = 0;
         this.gold = 0;
         this.purpose = 0 /* NONE */;
         this.turnBack = false;
@@ -22,6 +23,30 @@ class Dwarf {
     buf(palette) {
         return cacheDwarfs[palette[0]] ||
             (cacheDwarfs[palette[0]] = renderBuf(3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 11, this._render.bind(this, palette)));
+    }
+    advance() {
+        this.prevPos = this.pos;
+        switch (this.purpose) {
+            case 1 /* TREASURE */:
+                this.turnBack = false;
+                this.pos += 10;
+                if (this.pos >= 2 * SCREEN_WIDTH) {
+                    this.pos = 2 * SCREEN_WIDTH;
+                    this.gold = 1;
+                    this.purpose = 2 /* FORTRESS */;
+                }
+                break;
+            case 2 /* FORTRESS */:
+                this.turnBack = true;
+                this.pos -= 10;
+                if (this.pos <= 0) {
+                    this.pos = 0;
+                    updateGold(this.gold);
+                    this.gold = 0;
+                    this.purpose = 0 /* NONE */;
+                }
+                break;
+        }
     }
 }
 const dwarfs = [];

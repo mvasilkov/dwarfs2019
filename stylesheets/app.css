@@ -6,8 +6,7 @@ body {
 }
 
 b {
-    color: #eb6b6f;
-    font-weight: 700;
+    font-weight: inherit;
 }
 
 canvas {
@@ -21,6 +20,10 @@ h1 {
     line-height: 40px;
     margin: 0 0 0 -2px;
     text-shadow: 0 1px 0 #4c625a;
+}
+
+h1 b {
+    color: #eb6b6f;
 }
 
 .obj {
@@ -43,8 +46,8 @@ h1 {
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 2px;
-    line-height: 2;
-    padding: 7px;
+    line-height: 20px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -67,4 +70,8 @@ h1 {
 .controls a[disabled] {
     filter: grayscale(1);
     pointer-events: none;
+}
+
+#dwarf-plural, #gold-title {
+    display: none;
 }

@@ -4,17 +4,18 @@ const fortress = new Fortress
 const forest = new Forest
 const treasure = new Treasure
 
-dwarfs.push(new Dwarf(0))
-dwarfs.push(new Dwarf(230))
-dwarfs.push(new Dwarf(460))
-dwarfs.push(new Dwarf(690))
-dwarfs.push(new Dwarf(920))
+dwarfs.push(new Dwarf)
 
-dwarfs[1].gold = 1
-dwarfs[3].turnBack = true
-dwarfs[4].gold = 1
-dwarfs[4].turnBack = true
+function update(t: number) {
+    for (let dwarf of dwarfs) {
+        dwarf.advance()
+    }
+}
 
-fortress.render()
-forest.render()
-treasure.render()
+function render(t: number) {
+    fortress.render(t)
+    forest.render(t)
+    treasure.render(t)
+}
+
+startMainloop()

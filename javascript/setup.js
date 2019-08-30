@@ -30,3 +30,10 @@ const B_GOLD = [
     0b0010101010100100,
     0b0000010101010000,
 ]; // opacity is 0b00
+/* Utility functions */
+function lerp(a, b, t) {
+    return a * (1 - t) + b * t;
+}
+function clamp(x, a, b) {
+    return (x < a) ? a : (x > b) ? b : x;
+}

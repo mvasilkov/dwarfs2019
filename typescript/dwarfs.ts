@@ -2,7 +2,7 @@
 
 const enum DwarfsPurpose {
     NONE,
-    FOREST,
+    TREASURE,
     FORTRESS,
 }
 
@@ -10,12 +10,14 @@ const cacheDwarfs: { [palette: string]: HTMLCanvasElement } = {}
 
 class Dwarf {
     pos: number
+    prevPos: number
     gold: number
     purpose: DwarfsPurpose
     turnBack: boolean
 
-    constructor(pos: number) {
-        this.pos = pos
+    constructor() {
+        this.pos = 0
+        this.prevPos = 0
         this.gold = 0
         this.purpose = DwarfsPurpose.NONE
         this.turnBack = false
@@ -38,6 +40,33 @@ class Dwarf {
         return cacheDwarfs[palette[0]] ||
             (cacheDwarfs[palette[0]] = renderBuf(Inline.B_SCALE * 8, Inline.B_SCALE * 11,
                 this._render.bind(this, palette)))
+    }
+
+    advance() {
+        this.prevPos = this.pos
+
+        switch (this.purpose) {
+            case DwarfsPurpose.TREASURE:
+                this.turnBack = false
+                this.pos += 10
+                if (this.pos >= 2 * SCREEN_WIDTH) {
+                    this.pos = 2 * SCREEN_WIDTH
+                    this.gold = 1
+                    this.purpose = DwarfsPurpose.FORTRESS
+                }
+                break
+
+            case DwarfsPurpose.FORTRESS:
+                this.turnBack = true
+                this.pos -= 10
+                if (this.pos <= 0) {
+                    this.pos = 0
+                    updateGold(this.gold)
+                    this.gold = 0
+                    this.purpose = DwarfsPurpose.NONE
+                }
+                break
+        }
     }
 }
 

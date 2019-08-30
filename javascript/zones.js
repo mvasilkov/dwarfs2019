@@ -1,11 +1,11 @@
 "use strict";
 /// <reference path="dwarfs.d.ts" />
 class Zone {
-    render() {
+    render(t) {
         this.canvas.fillStyle = '#' + this.palette[3];
         this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         for (let dwarf of dwarfs) {
-            const pos = dwarf.pos - this.pos;
+            const pos = lerp(dwarf.prevPos, dwarf.pos, t) - this.pos;
             if (pos < -40 || pos > 500)
                 continue;
             this.canvas.save();
@@ -19,6 +19,7 @@ class Zone {
         }
         this.canvas.lineWidth = 2;
         this.canvas.strokeStyle = '#' + this.palette[0];
+        this.canvas.beginPath();
         this.canvas.rect(1, 1, SCREEN_WIDTH - 2, SCREEN_HEIGHT - 2);
         this.canvas.stroke();
     }

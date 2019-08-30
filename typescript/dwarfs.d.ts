@@ -3,4 +3,6 @@
 /// <reference path="gold.ts" />
 /// <reference path="dwarfs.ts" />
 /// <reference path="zones.ts" />
+/// <reference path="mainloop.ts" />
 /// <reference path="app.ts" />
+/// <reference path="actions.ts" />

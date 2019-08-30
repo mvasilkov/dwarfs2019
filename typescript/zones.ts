@@ -5,12 +5,12 @@ abstract class Zone {
     abstract palette: string[]
     abstract pos: number
 
-    render() {
+    render(t: number) {
         this.canvas.fillStyle = '#' + this.palette[3]
         this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
         for (let dwarf of dwarfs) {
-            const pos = dwarf.pos - this.pos
+            const pos = lerp(dwarf.prevPos, dwarf.pos, t) - this.pos
             if (pos < -40 || pos > 500) continue
             this.canvas.save()
             this.canvas.translate(pos + 2, 0)
@@ -24,6 +24,7 @@ abstract class Zone {
 
         this.canvas.lineWidth = 2
         this.canvas.strokeStyle = '#' + this.palette[0]
+        this.canvas.beginPath()
         this.canvas.rect(1, 1, SCREEN_WIDTH - 2, SCREEN_HEIGHT - 2)
         this.canvas.stroke()
     }

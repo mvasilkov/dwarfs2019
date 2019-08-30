@@ -9,7 +9,8 @@
     <body>
         <div class="obj" id="title">
             <h1>We have <b id="dwarf-count">1</b>
-                dwarf<b class="dwarf-plural" style="display:none">s</b></h1>
+                dwarf<b id="dwarf-plural">s</b><span id="gold-title">,
+                    and <b id="gold-count">0</b> gold</span></h1>
         </div>
         <div class="obj" id="fortress">
             <canvas id="can-fortress"></canvas>
@@ -25,7 +26,8 @@
                 <a id="btn-adventure" href="#">send on adventure</a>
             </div>
             <div class="obj" id="draft">
-                <a id="btn-draft" href="#" disabled>draft another dwarf</a>
+                <a id="btn-draft" href="#" disabled>draft another dwarf<br>
+                    (<b id="dwarf-cost">1</b> gold)</a>
             </div>
         </div>
         <script src="javascript/setup.js"></script>
@@ -33,6 +35,8 @@
         <script src="javascript/gold.js"></script>
         <script src="javascript/dwarfs.js"></script>
         <script src="javascript/zones.js"></script>
+        <script src="javascript/mainloop.js"></script>
         <script src="javascript/app.js"></script>
+        <script src="javascript/actions.js"></script>
     </body>
 </html>
