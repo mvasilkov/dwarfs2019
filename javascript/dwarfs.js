@@ -5,6 +5,7 @@ class Dwarf {
     constructor(pos) {
         this.pos = pos;
         this.gold = 0;
+        this.purpose = 0 /* NONE */;
         this.turnBack = false;
     }
     _render(palette, canvas) {
