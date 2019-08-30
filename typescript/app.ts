@@ -4,16 +4,17 @@ const fortress = new Fortress
 const forest = new Forest
 const treasure = new Treasure
 
+dwarfs.push(new Dwarf(0))
+dwarfs.push(new Dwarf(230))
+dwarfs.push(new Dwarf(460))
+dwarfs.push(new Dwarf(690))
+dwarfs.push(new Dwarf(920))
+
+dwarfs[1].gold = 1
+dwarfs[3].turnBack = true
+dwarfs[4].gold = 1
+dwarfs[4].turnBack = true
+
 fortress.render()
 forest.render()
 treasure.render()
-
-const dwarf = new Dwarf
-
-fortress.canvas.drawImage(dwarf.buf(fortress.palette), 40, 60)
-forest.canvas.drawImage(dwarf.buf(forest.palette), 40, 60)
-treasure.canvas.drawImage(dwarf.buf(treasure.palette), 40, 60)
-
-fortress.canvas.drawImage(bufGold, 40, 20)
-forest.canvas.drawImage(bufGold, 40, 20)
-treasure.canvas.drawImage(bufGold, 40, 20)

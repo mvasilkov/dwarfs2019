@@ -8,7 +8,9 @@ const PAL_FOREST = ['4c625a', '7b9278', 'abc396', 'dbf4b4']
 const PAL_TREASURE = ['2b2b26', '706b66', 'a89f94', 'e0dbcd']
 const PAL_GOLD = ['', 'ffae00', 'ffd800', 'fff000']
 
-const B_SCALE = 3
+const enum Inline {
+    B_SCALE = 3
+}
 
 const B_DWARF = [
     0b1001010101010110,
