@@ -1,13 +1,9 @@
 /// <reference path="dwarfs.d.ts" />
 
+const cacheDwarfs: { [palette: string]: HTMLCanvasElement } = {}
+
 class Dwarf {
-    cache: { [palette: string]: HTMLCanvasElement }
-
-    constructor() {
-        this.cache = {}
-    }
-
-    private render(palette: string[], canvas: CanvasRenderingContext2D) {
+    private _render(palette: string[], canvas: CanvasRenderingContext2D) {
         for (let y = 0; y < B_DWARF.length; ++y) {
             for (let x = 0; x < 8; ++x) {
                 const n = B_DWARF[y] >> 2 * (7 - x) & 0b11
@@ -20,8 +16,10 @@ class Dwarf {
     }
 
     buf(palette: string[]) {
-        return this.cache[palette[0]] ||
-            (this.cache[palette[0]] = renderBuf(B_SCALE * 8, B_SCALE * 11,
-                this.render.bind(this, palette)))
+        return cacheDwarfs[palette[0]] ||
+            (cacheDwarfs[palette[0]] = renderBuf(B_SCALE * 8, B_SCALE * 11,
+                this._render.bind(this, palette)))
     }
 }
+
+const dwarfs: Dwarf[] = []

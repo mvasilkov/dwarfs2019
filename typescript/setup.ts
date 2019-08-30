@@ -6,8 +6,9 @@ const SCREEN_HEIGHT = 125
 const PAL_FORTRESS = ['7c3f58', 'eb6b6f', 'f9a875', 'fff6d3']
 const PAL_FOREST = ['4c625a', '7b9278', 'abc396', 'dbf4b4']
 const PAL_TREASURE = ['2b2b26', '706b66', 'a89f94', 'e0dbcd']
+const PAL_GOLD = ['', 'ffae00', 'ffd800', 'fff000']
 
-const B_SCALE = 4
+const B_SCALE = 3
 
 const B_DWARF = [
     0b1001010101010110,
@@ -22,3 +23,15 @@ const B_DWARF = [
     0b1010100000001010,
     0b1010101000001010,
 ] // opacity is 0b10
+
+const B_GOLD = [
+    0b0000111111110000,
+    0b0011101010101000,
+    0b1110100101101010,
+    0b1010011010111010,
+    0b1010011010111010,
+    0b1010011010111010,
+    0b1010101111101001,
+    0b0010101010100100,
+    0b0000010101010000,
+] // opacity is 0b00
