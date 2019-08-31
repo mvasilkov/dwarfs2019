@@ -12,8 +12,10 @@ function updateButtons() {
 }
 
 function updateGold(n: number) {
-    if (totalGold == 0) // First update
+    if (totalGold == 0) { // First update
         $('gold-title').style.display = 'inline'
+        $spawn('draft')
+    }
 
     totalGold += n
 

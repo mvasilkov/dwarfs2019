@@ -19,6 +19,10 @@ class Zone {
             const pos = lerp(dwarf.prevPos, dwarf.pos, t) - this.pos;
             if (pos < -40 || pos > 500)
                 continue;
+            if (this.spawn) {
+                $spawn(this.spawn);
+                this.spawn = false;
+            }
             this.canvas.save();
             this.canvas.translate(pos + 2, 0);
             if (dwarf.gold)
@@ -41,6 +45,7 @@ class Fortress extends Zone {
         this.canvas = setupCanvas('can-fortress');
         this.palette = PAL_FORTRESS;
         this.pos = -230;
+        this.spawn = false;
     }
 }
 class Forest extends Zone {
@@ -49,6 +54,7 @@ class Forest extends Zone {
         this.canvas = setupCanvas('can-forest');
         this.palette = PAL_FOREST;
         this.pos = 230;
+        this.spawn = 'forest';
     }
 }
 class Treasure extends Zone {
@@ -57,5 +63,6 @@ class Treasure extends Zone {
         this.canvas = setupCanvas('can-treasure');
         this.palette = PAL_TREASURE;
         this.pos = 690;
+        this.spawn = 'treasure';
     }
 }

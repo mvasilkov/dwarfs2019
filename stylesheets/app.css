@@ -27,7 +27,36 @@ h1 b {
 }
 
 .obj {
+    left: -1000;
     margin: 40px;
+    opacity: 0;
+    position: absolute;
+    top: -1000;
+    transform: translateY(40px);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.obj.spawn {
+    opacity: 1;
+    position: static;
+    transform: translateY(0);
+}
+
+.obj.despawn {
+    position: static;
+    transform: translateY(-40px);
+}
+
+.controls .obj {
+    transform: translateY(40px) scale3d(1.2, 1.2, 1);
+}
+
+.controls .obj.spawn {
+    transform: translateY(0) scale3d(1, 1, 1);
+}
+
+.controls .obj.despawn {
+    transform: translateY(-40px) scale3d(0.8, 0.8, 1);
 }
 
 .controls {

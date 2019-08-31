@@ -14,4 +14,13 @@ function render(t) {
     forest.render(t);
     treasure.render(t);
 }
+setTimeout(() => {
+    $spawn('title');
+    setTimeout(() => {
+        $spawn('fortress');
+        setTimeout(() => {
+            $spawn('adventure');
+        }, 300);
+    }, 300);
+}, 10);
 startMainloop();

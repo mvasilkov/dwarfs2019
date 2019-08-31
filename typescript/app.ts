@@ -18,4 +18,14 @@ function render(t: number) {
     treasure.render(t)
 }
 
+setTimeout(() => {
+    $spawn('title')
+    setTimeout(() => {
+        $spawn('fortress')
+        setTimeout(() => {
+            $spawn('adventure')
+        }, 300)
+    }, 300)
+}, 10)
+
 startMainloop()

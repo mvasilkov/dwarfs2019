@@ -55,3 +55,12 @@ function $click(a, b) {
         b();
     });
 }
+function $spawn(a) {
+    $(a).className = 'obj spawn';
+}
+function $despawn(a) {
+    $(a).className = 'obj despawn';
+    setTimeout(() => {
+        $(a).style.display = 'none';
+    }, 500);
+}

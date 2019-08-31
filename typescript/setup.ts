@@ -69,3 +69,14 @@ function $click(a: string, b: () => void) {
         b()
     })
 }
+
+function $spawn(a: string) {
+    $(a).className = 'obj spawn'
+}
+
+function $despawn(a: string) {
+    $(a).className = 'obj despawn'
+    setTimeout(() => {
+        $(a).style.display = 'none'
+    }, 500)
+}

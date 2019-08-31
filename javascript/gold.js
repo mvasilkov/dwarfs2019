@@ -10,8 +10,10 @@ function updateButtons() {
         $disable('btn-draft');
 }
 function updateGold(n) {
-    if (totalGold == 0) // First update
+    if (totalGold == 0) { // First update
         $('gold-title').style.display = 'inline';
+        $spawn('draft');
+    }
     totalGold += n;
     $setContent('gold-count', totalGold);
     updateButtons();
