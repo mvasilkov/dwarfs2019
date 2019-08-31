@@ -14,22 +14,26 @@ const bufGold: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 8, Inline.B_SCALE 
         }
     })
 
+const groundLevel = 60
+
 abstract class Zone {
     abstract canvas: CanvasRenderingContext2D
     abstract palette: string[]
     abstract pos: number
-    abstract spawn: string | boolean
+    abstract spawn?: string
+    abstract renderWaiting?: boolean
 
     render(t: number) {
         this.canvas.fillStyle = '#' + this.palette[3]
         this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
         for (let dwarf of dwarfs) {
+            if (dwarf.pos == 0 && dwarf.prevPos == 0) continue
             const pos = lerp(dwarf.prevPos, dwarf.pos, t) - this.pos
             if (pos < -40 || pos > 500) continue
             if (this.spawn) {
-                $spawn(this.spawn as string)
-                this.spawn = false
+                $spawn(this.spawn)
+                this.spawn = undefined
             }
             this.canvas.save()
             this.canvas.translate(pos + 2, 0)
@@ -37,8 +41,37 @@ abstract class Zone {
                 this.canvas.drawImage(bufGold, -4 * Inline.B_SCALE, 20)
             if (dwarf.turnBack)
                 this.canvas.scale(-1, 1)
-            this.canvas.drawImage(dwarf.buf(this.palette), -4 * Inline.B_SCALE, 60)
+            this.canvas.drawImage(dwarf.buf(this.palette), -4 * Inline.B_SCALE, groundLevel)
             this.canvas.restore()
+        }
+
+        if (this.renderWaiting) {
+            const count = Math.min(dwarfsWaiting.length, Inline.WAITING_SIZE)
+            if (!count) return
+
+            const buf = dwarfsWaiting[0].buf(this.palette)
+            let pos, height
+
+            for (let n = count - 1; n >= 0; --n) {
+                if (n >= Inline.WAITING_BOTTOM) {
+                    if (n >= Inline.WAITING_SIZE_BM) {
+                        pos = Inline.WAITING_TOP_POS + Inline.B_SCALE *
+                            (9 * (Inline.WAITING_SIZE - n) - 4)
+                        height = groundLevel - 46
+                    }
+                    else {
+                        pos = Inline.WAITING_MIDDLE_POS + Inline.B_SCALE *
+                            (9 * (Inline.WAITING_SIZE_BM - n) - 4)
+                        height = groundLevel - 23
+                    }
+                }
+                else {
+                    pos = Inline.WAITING_BOTTOM_POS + Inline.B_SCALE *
+                        (9 * (Inline.WAITING_BOTTOM - n) - 4)
+                    height = groundLevel
+                }
+                this.canvas.drawImage(buf, pos + 2, height)
+            }
         }
 
         this.canvas.lineWidth = 2
@@ -53,14 +86,15 @@ class Fortress extends Zone {
     canvas: CanvasRenderingContext2D
     palette: string[]
     pos: number
-    spawn: string | boolean
+    spawn?: string
+    renderWaiting?: boolean
 
     constructor() {
         super()
         this.canvas = setupCanvas('can-fortress')
         this.palette = PAL_FORTRESS
         this.pos = -230
-        this.spawn = false
+        this.renderWaiting = true
     }
 }
 
@@ -68,7 +102,8 @@ class Forest extends Zone {
     canvas: CanvasRenderingContext2D
     palette: string[]
     pos: number
-    spawn: string | boolean
+    spawn?: string
+    renderWaiting?: boolean
 
     constructor() {
         super()
@@ -83,7 +118,8 @@ class Treasure extends Zone {
     canvas: CanvasRenderingContext2D
     palette: string[]
     pos: number
-    spawn: string | boolean
+    spawn?: string
+    renderWaiting?: boolean
 
     constructor() {
         super()

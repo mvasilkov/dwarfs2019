@@ -1,9 +1,8 @@
 "use strict";
 /// <reference path="dwarfs.d.ts" />
 $click('btn-adventure', () => {
-    const dwarf = dwarfs.find(dwarf => dwarf.purpose == 0 /* NONE */);
-    if (dwarf)
-        dwarf.purpose = 1 /* TREASURE */;
+    if (dwarfsWaiting.length)
+        dwarfsWaiting[0].purpose = 1 /* TREASURE */;
 });
 $click('btn-draft', () => {
     updateGold(-draftCost);

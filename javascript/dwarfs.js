@@ -1,5 +1,6 @@
 "use strict";
 /// <reference path="dwarfs.d.ts" />
+let dwarfSpeed = 10;
 const cacheDwarfs = {};
 class Dwarf {
     constructor() {
@@ -29,7 +30,7 @@ class Dwarf {
         switch (this.purpose) {
             case 1 /* TREASURE */:
                 this.turnBack = false;
-                this.pos += 10;
+                this.pos += dwarfSpeed;
                 if (this.pos >= 2 * SCREEN_WIDTH) {
                     this.pos = 2 * SCREEN_WIDTH;
                     this.gold = 1;
@@ -38,15 +39,17 @@ class Dwarf {
                 break;
             case 2 /* FORTRESS */:
                 this.turnBack = true;
-                this.pos -= 10;
+                this.pos -= dwarfSpeed;
                 if (this.pos <= 0) {
                     this.pos = 0;
                     updateGold(this.gold);
                     this.gold = 0;
                     this.purpose = 0 /* NONE */;
+                    this.turnBack = false;
                 }
                 break;
         }
     }
 }
 const dwarfs = [];
+let dwarfsWaiting = [];

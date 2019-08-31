@@ -7,9 +7,18 @@ const treasure = new Treasure
 dwarfs.push(new Dwarf)
 
 function update(t: number) {
+    dwarfsWaiting = []
+
     for (let dwarf of dwarfs) {
+        if (dwarf.purpose == DwarfsPurpose.NONE)
+            dwarfsWaiting.push(dwarf)
+
         dwarf.advance()
     }
+
+    if (dwarfsWaiting.length)
+        $enable('btn-adventure')
+    else $disable('btn-adventure')
 }
 
 function render(t: number) {

@@ -11,17 +11,20 @@ const bufGold = renderBuf(3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 9, canvas => {
         }
     }
 });
+const groundLevel = 60;
 class Zone {
     render(t) {
         this.canvas.fillStyle = '#' + this.palette[3];
         this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         for (let dwarf of dwarfs) {
+            if (dwarf.pos == 0 && dwarf.prevPos == 0)
+                continue;
             const pos = lerp(dwarf.prevPos, dwarf.pos, t) - this.pos;
             if (pos < -40 || pos > 500)
                 continue;
             if (this.spawn) {
                 $spawn(this.spawn);
-                this.spawn = false;
+                this.spawn = undefined;
             }
             this.canvas.save();
             this.canvas.translate(pos + 2, 0);
@@ -29,8 +32,35 @@ class Zone {
                 this.canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, 20);
             if (dwarf.turnBack)
                 this.canvas.scale(-1, 1);
-            this.canvas.drawImage(dwarf.buf(this.palette), -4 * 3 /* B_SCALE */, 60);
+            this.canvas.drawImage(dwarf.buf(this.palette), -4 * 3 /* B_SCALE */, groundLevel);
             this.canvas.restore();
+        }
+        if (this.renderWaiting) {
+            const count = Math.min(dwarfsWaiting.length, 24 /* WAITING_SIZE */);
+            if (!count)
+                return;
+            const buf = dwarfsWaiting[0].buf(this.palette);
+            let pos, height;
+            for (let n = count - 1; n >= 0; --n) {
+                if (n >= 9 /* WAITING_BOTTOM */) {
+                    if (n >= 17 /* WAITING_SIZE_BM */) {
+                        pos = 14 /* WAITING_TOP_POS */ + 3 /* B_SCALE */ *
+                            (9 * (24 /* WAITING_SIZE */ - n) - 4);
+                        height = groundLevel - 46;
+                    }
+                    else {
+                        pos = 0 /* WAITING_MIDDLE_POS */ + 3 /* B_SCALE */ *
+                            (9 * (17 /* WAITING_SIZE_BM */ - n) - 4);
+                        height = groundLevel - 23;
+                    }
+                }
+                else {
+                    pos = -13 /* WAITING_BOTTOM_POS */ + 3 /* B_SCALE */ *
+                        (9 * (9 /* WAITING_BOTTOM */ - n) - 4);
+                    height = groundLevel;
+                }
+                this.canvas.drawImage(buf, pos + 2, height);
+            }
         }
         this.canvas.lineWidth = 2;
         this.canvas.strokeStyle = '#' + this.palette[0];
@@ -45,7 +75,7 @@ class Fortress extends Zone {
         this.canvas = setupCanvas('can-fortress');
         this.palette = PAL_FORTRESS;
         this.pos = -230;
-        this.spawn = false;
+        this.renderWaiting = true;
     }
 }
 class Forest extends Zone {

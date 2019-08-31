@@ -1,8 +1,8 @@
 /// <reference path="dwarfs.d.ts" />
 
 $click('btn-adventure', () => {
-    const dwarf = dwarfs.find(dwarf => dwarf.purpose == DwarfsPurpose.NONE)
-    if (dwarf) dwarf.purpose = DwarfsPurpose.TREASURE
+    if (dwarfsWaiting.length)
+        dwarfsWaiting[0].purpose = DwarfsPurpose.TREASURE
 })
 
 $click('btn-draft', () => {

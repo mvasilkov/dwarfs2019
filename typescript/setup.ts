@@ -9,7 +9,16 @@ const PAL_TREASURE = ['2b2b26', '706b66', 'a89f94', 'e0dbcd']
 const PAL_GOLD = ['', 'ffae00', 'ffd800', 'fff000']
 
 const enum Inline {
-    B_SCALE = 3
+    B_SCALE = 3,
+    // Waiting fortress
+    WAITING_BOTTOM = 0 | 230 / (9 * Inline.B_SCALE) + 1,
+    WAITING_MIDDLE = Inline.WAITING_BOTTOM - 1,
+    WAITING_TOP = Inline.WAITING_BOTTOM - 2,
+    WAITING_SIZE_BM = Inline.WAITING_BOTTOM + Inline.WAITING_MIDDLE,
+    WAITING_SIZE = Inline.WAITING_BOTTOM + Inline.WAITING_MIDDLE + Inline.WAITING_TOP,
+    WAITING_BOTTOM_POS = 230 - 9 * Inline.B_SCALE * Inline.WAITING_BOTTOM,
+    WAITING_MIDDLE_POS = Inline.WAITING_BOTTOM_POS + 4 * Inline.B_SCALE + 1, // 4.5
+    WAITING_TOP_POS = Inline.WAITING_BOTTOM_POS + 9 * Inline.B_SCALE,
 }
 
 const B_DWARF = [

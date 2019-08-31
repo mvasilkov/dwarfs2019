@@ -5,9 +5,16 @@ const forest = new Forest;
 const treasure = new Treasure;
 dwarfs.push(new Dwarf);
 function update(t) {
+    dwarfsWaiting = [];
     for (let dwarf of dwarfs) {
+        if (dwarf.purpose == 0 /* NONE */)
+            dwarfsWaiting.push(dwarf);
         dwarf.advance();
     }
+    if (dwarfsWaiting.length)
+        $enable('btn-adventure');
+    else
+        $disable('btn-adventure');
 }
 function render(t) {
     fortress.render(t);
