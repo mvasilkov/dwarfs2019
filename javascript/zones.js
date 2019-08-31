@@ -91,7 +91,7 @@ class Fortress extends Zone {
             this.canvas.rect(SCREEN_WIDTH - 37.5, 4.5, 33, 7);
             this.canvas.stroke();
             this.canvas.fillStyle = '#' + this.palette[1];
-            this.canvas.fillRect(SCREEN_WIDTH - 36, 6, 30 * lerp(autorunWaitPrev, autorunWait, t) / 2.2 /* AUTORUN_TIMEOUT */, 4);
+            this.canvas.fillRect(SCREEN_WIDTH - 36, 6, 30 * lerp(autorunWaitPrev, autorunWait, t) / autorunSpeed, 4);
         }
     }
 }

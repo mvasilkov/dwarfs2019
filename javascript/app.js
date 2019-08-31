@@ -4,6 +4,7 @@ const fortress = new Fortress;
 const forest = new Forest;
 const treasure = new Treasure;
 let hasAutorun = false;
+let autorunSpeed = 2.4;
 let autorunWait = 0;
 let autorunWaitPrev = 0;
 dwarfs.push(new Dwarf);
@@ -16,8 +17,8 @@ function update(t) {
     }
     $setEnabled('btn-adventure', dwarfsWaiting.length);
     if (hasAutorun) {
-        if (autorunWait >= 2.2 /* AUTORUN_TIMEOUT */) {
-            autorunWait -= 2.2 /* AUTORUN_TIMEOUT */;
+        if (autorunWait >= autorunSpeed) {
+            autorunWait -= autorunSpeed;
             autorunWaitPrev = autorunWait;
             if (dwarfsWaiting.length)
                 dwarfsWaiting[0].purpose = 1 /* TREASURE */;

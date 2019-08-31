@@ -114,7 +114,7 @@ class Fortress extends Zone {
 
             this.canvas.fillStyle = '#' + this.palette[1]
             this.canvas.fillRect(SCREEN_WIDTH - 36, 6,
-                30 * lerp(autorunWaitPrev, autorunWait, t) / Inline.AUTORUN_TIMEOUT, 4)
+                30 * lerp(autorunWaitPrev, autorunWait, t) / autorunSpeed, 4)
         }
     }
 }

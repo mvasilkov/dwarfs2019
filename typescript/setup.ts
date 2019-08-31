@@ -19,8 +19,6 @@ const enum Inline {
     WAITING_BOTTOM_POS = 230 - 9 * Inline.B_SCALE * Inline.WAITING_BOTTOM,
     WAITING_MIDDLE_POS = Inline.WAITING_BOTTOM_POS + 4 * Inline.B_SCALE + 1, // 4.5
     WAITING_TOP_POS = Inline.WAITING_BOTTOM_POS + 9 * Inline.B_SCALE,
-    // Autorun
-    AUTORUN_TIMEOUT = 2.2,
 }
 
 const B_DWARF = [

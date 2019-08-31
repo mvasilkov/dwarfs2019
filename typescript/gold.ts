@@ -13,6 +13,8 @@ function updateButtons() {
     $setEnabled('btn-draft', totalGold >= draftCost)
     $setEnabled('btn-covfefe', totalGold >= 10)
     $setEnabled('btn-autorun', totalGold >= 20)
+    $setEnabled('btn-turborun', totalGold >= 30)
+    $setEnabled('btn-speedrun', totalGold >= 40)
 }
 
 function updateGold(n: number) {

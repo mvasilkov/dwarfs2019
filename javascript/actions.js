@@ -20,4 +20,16 @@ $click('btn-autorun', () => {
     updateGold(-20);
     hasAutorun = true;
     $despawn('autorun');
+    $spawn('turborun');
+});
+$click('btn-turborun', () => {
+    updateGold(-30);
+    autorunSpeed *= 0.5;
+    $despawn('turborun');
+    $spawn('speedrun');
+});
+$click('btn-speedrun', () => {
+    updateGold(-40);
+    autorunSpeed *= 0.5;
+    $despawn('speedrun');
 });

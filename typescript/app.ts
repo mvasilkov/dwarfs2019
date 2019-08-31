@@ -5,6 +5,7 @@ const forest = new Forest
 const treasure = new Treasure
 
 let hasAutorun = false
+let autorunSpeed = 2.4
 let autorunWait = 0
 let autorunWaitPrev = 0
 
@@ -23,8 +24,8 @@ function update(t: number) {
     $setEnabled('btn-adventure', dwarfsWaiting.length)
 
     if (hasAutorun) {
-        if (autorunWait >= Inline.AUTORUN_TIMEOUT) {
-            autorunWait -= Inline.AUTORUN_TIMEOUT
+        if (autorunWait >= autorunSpeed) {
+            autorunWait -= autorunSpeed
             autorunWaitPrev = autorunWait
             if (dwarfsWaiting.length)
                 dwarfsWaiting[0].purpose = DwarfsPurpose.TREASURE

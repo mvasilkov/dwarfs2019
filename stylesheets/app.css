@@ -36,7 +36,7 @@ h1 b {
     position: absolute;
     top: -1000;
     transform: translateY(40px);
-    transition: opacity 500ms, transform 500ms;
+    transition: margin-bottom 500ms, opacity 500ms, transform 500ms;
 }
 
 .obj.spawn {
@@ -59,8 +59,9 @@ h1 b {
 }
 
 .controls .obj.despawn {
+    margin-bottom: -100px;
     pointer-events: none;
-    transform: scale3d(0.8, 0.8, 1);
+    transform: translateY(-40px) scale3d(0.8, 0.8, 1);
 }
 
 .controls {
@@ -84,6 +85,7 @@ h1 b {
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
+    touch-action: manipulation;
 }
 
 .controls a:focus {
