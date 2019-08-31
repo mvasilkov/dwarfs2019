@@ -11,3 +11,8 @@ $click('btn-draft', () => {
     $setContent('dwarf-count', dwarfs.length);
     $('dwarf-plural').style.display = dwarfs.length == 1 ? 'none' : 'inline';
 });
+$click('btn-covfefe', () => {
+    updateGold(-10);
+    dwarfSpeed *= 1.2;
+    $despawn('covfefe');
+});

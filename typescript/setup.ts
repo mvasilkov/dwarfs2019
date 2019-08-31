@@ -68,6 +68,11 @@ function $disable(a: string) {
     $(a).setAttribute('disabled', 'disabled')
 }
 
+function $setEnabled(a: string, b: any) {
+    if (b) $enable(a)
+    else $disable(a)
+}
+
 function $setContent(a: string, b: number | string) {
     $(a).textContent = '' + b
 }

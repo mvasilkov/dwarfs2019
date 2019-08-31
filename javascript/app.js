@@ -11,10 +11,7 @@ function update(t) {
             dwarfsWaiting.push(dwarf);
         dwarf.advance();
     }
-    if (dwarfsWaiting.length)
-        $enable('btn-adventure');
-    else
-        $disable('btn-adventure');
+    $setEnabled('btn-adventure', dwarfsWaiting.length);
 }
 function render(t) {
     fortress.render(t);

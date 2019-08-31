@@ -3,6 +3,9 @@ body {
     font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
     line-height: 1.58;
     margin: 0;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 b {
@@ -56,6 +59,7 @@ h1 b {
 }
 
 .controls .obj.despawn {
+    pointer-events: none;
     transform: translateY(-40px) scale3d(0.8, 0.8, 1);
 }
 
@@ -80,8 +84,6 @@ h1 b {
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    -moz-user-select: none;
-    -webkit-user-select: none;
 }
 
 .controls a:focus {

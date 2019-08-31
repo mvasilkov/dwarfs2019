@@ -46,6 +46,12 @@ function $enable(a) {
 function $disable(a) {
     $(a).setAttribute('disabled', 'disabled');
 }
+function $setEnabled(a, b) {
+    if (b)
+        $enable(a);
+    else
+        $disable(a);
+}
 function $setContent(a, b) {
     $(a).textContent = '' + b;
 }

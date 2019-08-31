@@ -45,10 +45,8 @@ abstract class Zone {
             this.canvas.restore()
         }
 
-        if (this.renderWaiting) {
+        if (this.renderWaiting && dwarfsWaiting.length) {
             const count = Math.min(dwarfsWaiting.length, Inline.WAITING_SIZE)
-            if (!count) return
-
             const buf = dwarfsWaiting[0].buf(this.palette)
             let pos, height
 

@@ -6,15 +6,17 @@ let draftCost = 1
 let draftCostPrev = 1
 
 function updateButtons() {
-    if (totalGold >= draftCost)
-        $enable('btn-draft')
-    else $disable('btn-draft')
+    $setEnabled('btn-draft', totalGold >= draftCost)
+    $setEnabled('btn-covfefe', totalGold >= 10)
 }
 
 function updateGold(n: number) {
     if (totalGold == 0) { // First update
         $('gold-title').style.display = 'inline'
         $spawn('draft')
+        setTimeout(() => {
+            $spawn('covfefe')
+        }, 300)
     }
 
     totalGold += n

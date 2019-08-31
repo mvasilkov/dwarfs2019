@@ -35,10 +35,8 @@ class Zone {
             this.canvas.drawImage(dwarf.buf(this.palette), -4 * 3 /* B_SCALE */, groundLevel);
             this.canvas.restore();
         }
-        if (this.renderWaiting) {
+        if (this.renderWaiting && dwarfsWaiting.length) {
             const count = Math.min(dwarfsWaiting.length, 24 /* WAITING_SIZE */);
-            if (!count)
-                return;
             const buf = dwarfsWaiting[0].buf(this.palette);
             let pos, height;
             for (let n = count - 1; n >= 0; --n) {
