@@ -58,6 +58,14 @@ function clamp(x: number, a: number, b: number): number {
     return (x < a) ? a : (x > b) ? b : x
 }
 
+function easeInQuad(t: number): number {
+    return t * t
+}
+
+function easeOutQuad(t: number): number {
+    return t * (2 - t)
+}
+
 function $(a: string): HTMLElement {
     return document.getElementById(a)!
 }

@@ -60,7 +60,7 @@ h1 b {
 
 .controls .obj.despawn {
     pointer-events: none;
-    transform: translateY(-40px) scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
 }
 
 .controls {

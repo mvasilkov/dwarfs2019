@@ -15,9 +15,7 @@ function updateGold(n) {
     if (totalGold == 0) { // First update
         $('gold-title').style.display = 'inline';
         $spawn('draft');
-        setTimeout(() => {
-            $spawn('covfefe');
-        }, 300);
+        $spawn('covfefe');
     }
     totalGold += n;
     while (goldSpawn.length && totalGold >= goldSpawn[0][0]) {

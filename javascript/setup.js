@@ -37,6 +37,12 @@ function lerp(a, b, t) {
 function clamp(x, a, b) {
     return (x < a) ? a : (x > b) ? b : x;
 }
+function easeInQuad(t) {
+    return t * t;
+}
+function easeOutQuad(t) {
+    return t * (2 - t);
+}
 function $(a) {
     return document.getElementById(a);
 }

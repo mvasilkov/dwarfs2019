@@ -7,6 +7,9 @@ const enum DwarfsPurpose {
 }
 
 let dwarfSpeed = 10
+let speedFortress = 0.9
+let speedForest = 0.6
+let speedTreasure = 0.9
 
 const cacheDwarfs: { [palette: string]: HTMLCanvasElement } = {}
 
@@ -47,10 +50,13 @@ class Dwarf {
     advance() {
         this.prevPos = this.pos
 
+        const speed = dwarfSpeed * (this.pos < 230 ? speedFortress :
+            (this.pos > 690 ? speedTreasure : speedForest))
+
         switch (this.purpose) {
             case DwarfsPurpose.TREASURE:
                 this.turnBack = false
-                this.pos += dwarfSpeed
+                this.pos += speed
                 if (this.pos >= 2 * SCREEN_WIDTH) {
                     this.pos = 2 * SCREEN_WIDTH
                     this.gold = 1
@@ -60,7 +66,7 @@ class Dwarf {
 
             case DwarfsPurpose.FORTRESS:
                 this.turnBack = true
-                this.pos -= dwarfSpeed
+                this.pos -= speed
                 if (this.pos <= 0) {
                     this.pos = 0
                     updateGold(this.gold)

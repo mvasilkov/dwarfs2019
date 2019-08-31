@@ -14,6 +14,12 @@ const bufGold: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 8, Inline.B_SCALE 
         }
     })
 
+function easingPos(pos: number): number {
+    if (pos < 230) return 230 * easeInQuad(pos / 230)
+    if (pos > 690) return 230 * easeOutQuad((pos - 690) / 230) + 690
+    return pos
+}
+
 const groundLevel = 60
 
 abstract class Zone {
@@ -29,7 +35,7 @@ abstract class Zone {
 
         for (let dwarf of dwarfs) {
             if (dwarf.pos == 0 && dwarf.prevPos == 0) continue
-            const pos = lerp(dwarf.prevPos, dwarf.pos, t) - this.pos
+            const pos = easingPos(lerp(dwarf.prevPos, dwarf.pos, t)) - this.pos
             if (pos < -40 || pos > 500) continue
             if (this.spawn) {
                 $spawn(this.spawn)
