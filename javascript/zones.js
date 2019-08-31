@@ -75,6 +75,18 @@ class Fortress extends Zone {
         this.pos = -230;
         this.renderWaiting = true;
     }
+    render(t) {
+        super.render(t);
+        if (hasAutorun) {
+            this.canvas.lineWidth = 1;
+            this.canvas.strokeStyle = '#' + this.palette[0];
+            this.canvas.beginPath();
+            this.canvas.rect(SCREEN_WIDTH - 37.5, 4.5, 33, 7);
+            this.canvas.stroke();
+            this.canvas.fillStyle = '#' + this.palette[1];
+            this.canvas.fillRect(SCREEN_WIDTH - 36, 6, 30 * lerp(autorunWaitPrev, autorunWait, t) / 2.2 /* AUTORUN_TIMEOUT */, 4);
+        }
+    }
 }
 class Forest extends Zone {
     constructor() {

@@ -1,5 +1,9 @@
 /// <reference path="dwarfs.d.ts" />
 
+const goldSpawn: [number, string][] = [
+    [10, 'autorun'],
+]
+
 let totalGold = 0
 
 let draftCost = 1
@@ -8,6 +12,7 @@ let draftCostPrev = 1
 function updateButtons() {
     $setEnabled('btn-draft', totalGold >= draftCost)
     $setEnabled('btn-covfefe', totalGold >= 10)
+    $setEnabled('btn-autorun', totalGold >= 20)
 }
 
 function updateGold(n: number) {
@@ -20,6 +25,11 @@ function updateGold(n: number) {
     }
 
     totalGold += n
+
+    while (goldSpawn.length && totalGold >= goldSpawn[0][0]) {
+        $spawn(goldSpawn[0][1])
+        goldSpawn.shift()
+    }
 
     $setContent('gold-count', totalGold)
     updateButtons()

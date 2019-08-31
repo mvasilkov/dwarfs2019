@@ -16,3 +16,8 @@ $click('btn-covfefe', () => {
     dwarfSpeed *= 1.2;
     $despawn('covfefe');
 });
+$click('btn-autorun', () => {
+    updateGold(-20);
+    hasAutorun = true;
+    $despawn('autorun');
+});
