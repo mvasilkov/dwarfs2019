@@ -17,6 +17,13 @@ $click('btn-covfefe', () => {
     updateGold(-10)
     dwarfSpeed *= 1.2
     $despawn('covfefe')
+    $spawn('fasta')
+})
+
+$click('btn-fasta', () => {
+    updateGold(-25)
+    dwarfSpeed *= 1.1
+    $despawn('fasta')
 })
 
 $click('btn-autorun', () => {

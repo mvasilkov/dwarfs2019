@@ -23,6 +23,7 @@ h1 {
     line-height: 40px;
     margin: 0 0 0 -2px;
     text-shadow: 0 1px 0 #4c625a;
+    white-space: nowrap;
 }
 
 h1 b {

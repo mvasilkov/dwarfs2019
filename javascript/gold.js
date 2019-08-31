@@ -9,6 +9,7 @@ let draftCostPrev = 1;
 function updateButtons() {
     $setEnabled('btn-draft', totalGold >= draftCost);
     $setEnabled('btn-covfefe', totalGold >= 10);
+    $setEnabled('btn-fasta', totalGold >= 25);
     $setEnabled('btn-autorun', totalGold >= 20);
     $setEnabled('btn-turborun', totalGold >= 30);
     $setEnabled('btn-speedrun', totalGold >= 40);
