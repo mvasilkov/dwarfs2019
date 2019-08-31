@@ -1,4 +1,6 @@
 /// <reference path="setup.ts" />
+/// <reference path="font.ts" />
+/// <reference path="cleartype.ts" />
 /// <reference path="canvas.ts" />
 /// <reference path="dwarfs.ts" />
 /// <reference path="gold.ts" />

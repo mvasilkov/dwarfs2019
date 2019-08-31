@@ -14,24 +14,77 @@ const bufGold: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 8, Inline.B_SCALE 
         }
     })
 
+const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    canvas => {
+        canvas.fillStyle = '#' + PAL_FORTRESS[3]
+        canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        canvas.fillStyle = '#' + PAL_FORTRESS[2]
+        // canvas.fillRect(0, 87, SCREEN_WIDTH, 1)
+        for (let n = 0; n < 23; ++n) {
+            if (n % 2 == 0) {
+                canvas.fillRect(20 * n + 5, 88, 20, 4)
+                canvas.fillRect(20 * n + 4, 92, 20, 4)
+                canvas.fillRect(20 * n + 3, 96, 20, 4)
+
+                canvas.fillRect(20 * n + 1, 112, 20, 4)
+                canvas.fillRect(20 * n, 116, 20, 4)
+                canvas.fillRect(20 * n - 1, 120, 20, 4)
+            }
+            else {
+                canvas.fillRect(20 * n + 3, 100, 20, 4)
+                canvas.fillRect(20 * n + 2, 104, 20, 4)
+                canvas.fillRect(20 * n + 1, 108, 20, 4)
+            }
+        }
+
+        canvas.fillStyle = '#' + PAL_FORTRESS[1]
+        write('Dwarf Fortress', canvas, 20, 20)
+    })
+
+const bufForest: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    canvas => {
+        canvas.fillStyle = '#' + PAL_FOREST[3]
+        canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        canvas.fillStyle = '#' + PAL_FOREST[2]
+        for (let n = 0; n < 6; ++n) {
+            write('&', canvas, 70 * n + 48, 50 + Math.random() * 40)
+        }
+
+        canvas.fillStyle = '#' + PAL_FOREST[1]
+        write('Black Forest', canvas, 20, 20)
+    })
+
+const bufTreasure: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    canvas => {
+        canvas.fillStyle = '#' + PAL_TREASURE[3]
+        canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        canvas.fillStyle = '#' + PAL_TREASURE[1]
+        write('Fabled Treasure', canvas, 20, 20)
+    })
+
 function easingPos(pos: number): number {
     if (pos < 230) return 230 * easeInQuad(pos / 230)
     if (pos > 690) return 230 * easeOutQuad((pos - 690) / 230) + 690
     return pos
 }
 
-const groundLevel = 60
+const groundLevel = 70
 
 abstract class Zone {
     abstract canvas: CanvasRenderingContext2D
     abstract palette: string[]
+    abstract buf: HTMLCanvasElement
     abstract pos: number
     abstract spawn?: string
     abstract renderWaiting?: boolean
 
     render(t: number) {
-        this.canvas.fillStyle = '#' + this.palette[3]
-        this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+        // this.canvas.fillStyle = '#' + this.palette[3]
+        // this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+        this.canvas.drawImage(this.buf, 0, 0)
 
         for (let dwarf of dwarfs) {
             if (dwarf.pos == 0 && dwarf.prevPos == 0) continue
@@ -44,7 +97,7 @@ abstract class Zone {
             this.canvas.save()
             this.canvas.translate(pos + 2, 0)
             if (dwarf.gold)
-                this.canvas.drawImage(bufGold, -4 * Inline.B_SCALE, 20)
+                this.canvas.drawImage(bufGold, -4 * Inline.B_SCALE, groundLevel - 40)
             if (dwarf.turnBack)
                 this.canvas.scale(-1, 1)
             this.canvas.drawImage(dwarf.buf(this.palette), -4 * Inline.B_SCALE, groundLevel)
@@ -89,6 +142,7 @@ abstract class Zone {
 class Fortress extends Zone {
     canvas: CanvasRenderingContext2D
     palette: string[]
+    buf: HTMLCanvasElement
     pos: number
     spawn?: string
     renderWaiting?: boolean
@@ -97,6 +151,7 @@ class Fortress extends Zone {
         super()
         this.canvas = setupCanvas('can-fortress')
         this.palette = PAL_FORTRESS
+        this.buf = bufFortress
         this.pos = -230
         this.renderWaiting = true
     }
@@ -122,6 +177,7 @@ class Fortress extends Zone {
 class Forest extends Zone {
     canvas: CanvasRenderingContext2D
     palette: string[]
+    buf: HTMLCanvasElement
     pos: number
     spawn?: string
     renderWaiting?: boolean
@@ -130,6 +186,7 @@ class Forest extends Zone {
         super()
         this.canvas = setupCanvas('can-forest')
         this.palette = PAL_FOREST
+        this.buf = bufForest
         this.pos = 230
         this.spawn = 'forest'
     }
@@ -138,6 +195,7 @@ class Forest extends Zone {
 class Treasure extends Zone {
     canvas: CanvasRenderingContext2D
     palette: string[]
+    buf: HTMLCanvasElement
     pos: number
     spawn?: string
     renderWaiting?: boolean
@@ -146,6 +204,7 @@ class Treasure extends Zone {
         super()
         this.canvas = setupCanvas('can-treasure')
         this.palette = PAL_TREASURE
+        this.buf = bufTreasure
         this.pos = 690
         this.spawn = 'treasure'
     }
