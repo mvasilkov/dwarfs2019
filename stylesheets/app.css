@@ -60,8 +60,6 @@ h1 b {
     outline-offset: 2px;
 }
 
-.controls a:hover {}
-
 .controls a:active {
     box-shadow: 0 6px 20px rgba(248, 66, 132, 0.4);
     transform: translateY(2px);
@@ -74,4 +72,8 @@ h1 b {
 
 #dwarf-plural, #gold-title {
     display: none;
+}
+
+#dwarf-plural {
+    color: #7b9278;
 }

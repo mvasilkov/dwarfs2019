@@ -37,3 +37,21 @@ function lerp(a, b, t) {
 function clamp(x, a, b) {
     return (x < a) ? a : (x > b) ? b : x;
 }
+function $(a) {
+    return document.getElementById(a);
+}
+function $enable(a) {
+    $(a).removeAttribute('disabled');
+}
+function $disable(a) {
+    $(a).setAttribute('disabled', 'disabled');
+}
+function $setContent(a, b) {
+    $(a).textContent = '' + b;
+}
+function $click(a, b) {
+    $(a).addEventListener('click', event => {
+        event.preventDefault();
+        b();
+    });
+}

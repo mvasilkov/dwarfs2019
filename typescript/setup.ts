@@ -46,3 +46,26 @@ function lerp(a: number, b: number, t: number): number {
 function clamp(x: number, a: number, b: number): number {
     return (x < a) ? a : (x > b) ? b : x
 }
+
+function $(a: string): HTMLElement {
+    return document.getElementById(a)!
+}
+
+function $enable(a: string) {
+    $(a).removeAttribute('disabled')
+}
+
+function $disable(a: string) {
+    $(a).setAttribute('disabled', 'disabled')
+}
+
+function $setContent(a: string, b: number | string) {
+    $(a).textContent = '' + b
+}
+
+function $click(a: string, b: () => void) {
+    $(a).addEventListener('click', event => {
+        event.preventDefault()
+        b()
+    })
+}
