@@ -8,17 +8,22 @@ let hasAutorun = false
 let autorunSpeed = 2.4
 let autorunWait = 0
 let autorunWaitPrev = 0
+let clearedForLanding = 0 // boolean, really
 
 dwarfs.push(new Dwarf)
 
 function update(t: number) {
     dwarfsWaiting = []
+    clearedForLanding = 0
 
     for (let dwarf of dwarfs) {
+        dwarf.advance()
+
         if (dwarf.purpose == DwarfsPurpose.NONE)
             dwarfsWaiting.push(dwarf)
 
-        dwarf.advance()
+        if (dwarf.pos > 0 && dwarf.pos < 160)
+            clearedForLanding = 1
     }
 
     $setEnabled('btn-adventure', dwarfsWaiting.length)

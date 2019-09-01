@@ -39,3 +39,10 @@ $click('btn-speedrun', () => {
     autorunSpeed *= 0.5;
     $despawn('speedrun');
 });
+$click('btn-illuminate', () => {
+    updateGold(-25);
+    forest.palette = PAL_FOREST;
+    forest.buf = bufForestLit;
+    speedForest *= 1.3;
+    $despawn('illuminate');
+});

@@ -42,19 +42,26 @@ const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
         write('Dwarf Fortress', canvas, 20, 20)
     })
 
-const bufForest: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
-    canvas => {
-        canvas.fillStyle = '#' + PAL_FOREST[3]
+function renderForest(palette: string[], title: string): RenderFun {
+    return canvas => {
+        canvas.fillStyle = '#' + palette[3]
         canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-        canvas.fillStyle = '#' + PAL_FOREST[2]
+        canvas.fillStyle = '#' + palette[2]
         for (let n = 0; n < 6; ++n) {
-            write('&', canvas, 70 * n + 48, 50 + Math.random() * 40)
+            write('&', canvas, 70 * n + 48, 50 + (0 | Math.random() * 40))
         }
 
-        canvas.fillStyle = '#' + PAL_FOREST[1]
-        write('Black Forest', canvas, 20, 20)
-    })
+        canvas.fillStyle = '#' + palette[1]
+        write(title, canvas, 20, 20)
+    }
+}
+
+const bufForest: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderForest(PAL_FOREST_DARK, 'Black Forest'))
+
+const bufForestLit: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderForest(PAL_FOREST, 'Reasonably Lit Forest'))
 
 const bufTreasure: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
     canvas => {
@@ -105,11 +112,11 @@ abstract class Zone {
         }
 
         if (this.renderWaiting && dwarfsWaiting.length) {
-            const count = Math.min(dwarfsWaiting.length, Inline.WAITING_SIZE)
+            const count = Math.min(dwarfsWaiting.length + clearedForLanding, Inline.WAITING_SIZE)
             const buf = dwarfsWaiting[0].buf(this.palette)
             let pos, height
 
-            for (let n = count - 1; n >= 0; --n) {
+            for (let n = count - 1; n >= clearedForLanding; --n) {
                 if (n >= Inline.WAITING_BOTTOM) {
                     if (n >= Inline.WAITING_SIZE_BM) {
                         pos = Inline.WAITING_TOP_POS + Inline.B_SCALE *
@@ -166,7 +173,6 @@ class Fortress extends Zone {
             this.canvas.rect(SCREEN_WIDTH - 37.5, 4.5, 33, 7)
             this.canvas.stroke()
 
-
             this.canvas.fillStyle = '#' + this.palette[1]
             this.canvas.fillRect(SCREEN_WIDTH - 36, 6,
                 30 * lerp(autorunWaitPrev, autorunWait, t) / autorunSpeed, 4)
@@ -185,7 +191,7 @@ class Forest extends Zone {
     constructor() {
         super()
         this.canvas = setupCanvas('can-forest')
-        this.palette = PAL_FOREST
+        this.palette = PAL_FOREST_DARK
         this.buf = bufForest
         this.pos = 230
         this.spawn = 'forest'

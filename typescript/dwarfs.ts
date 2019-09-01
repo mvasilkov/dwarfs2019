@@ -8,7 +8,7 @@ const enum DwarfsPurpose {
 
 let dwarfSpeed = 10
 let speedFortress = 0.9
-let speedForest = 0.6
+let speedForest = 0.59
 let speedTreasure = 0.9
 
 const cacheDwarfs: { [palette: string]: HTMLCanvasElement } = {}

@@ -34,16 +34,20 @@ const bufFortress = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_FORTRESS[1];
     write('Dwarf Fortress', canvas, 20, 20);
 });
-const bufForest = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
-    canvas.fillStyle = '#' + PAL_FOREST[3];
-    canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    canvas.fillStyle = '#' + PAL_FOREST[2];
-    for (let n = 0; n < 6; ++n) {
-        write('&', canvas, 70 * n + 48, 50 + Math.random() * 40);
-    }
-    canvas.fillStyle = '#' + PAL_FOREST[1];
-    write('Black Forest', canvas, 20, 20);
-});
+function renderForest(palette, title) {
+    return canvas => {
+        canvas.fillStyle = '#' + palette[3];
+        canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        canvas.fillStyle = '#' + palette[2];
+        for (let n = 0; n < 6; ++n) {
+            write('&', canvas, 70 * n + 48, 50 + (0 | Math.random() * 40));
+        }
+        canvas.fillStyle = '#' + palette[1];
+        write(title, canvas, 20, 20);
+    };
+}
+const bufForest = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderForest(PAL_FOREST_DARK, 'Black Forest'));
+const bufForestLit = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderForest(PAL_FOREST, 'Reasonably Lit Forest'));
 const bufTreasure = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_TREASURE[3];
     canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -83,10 +87,10 @@ class Zone {
             this.canvas.restore();
         }
         if (this.renderWaiting && dwarfsWaiting.length) {
-            const count = Math.min(dwarfsWaiting.length, 24 /* WAITING_SIZE */);
+            const count = Math.min(dwarfsWaiting.length + clearedForLanding, 24 /* WAITING_SIZE */);
             const buf = dwarfsWaiting[0].buf(this.palette);
             let pos, height;
-            for (let n = count - 1; n >= 0; --n) {
+            for (let n = count - 1; n >= clearedForLanding; --n) {
                 if (n >= 9 /* WAITING_BOTTOM */) {
                     if (n >= 17 /* WAITING_SIZE_BM */) {
                         pos = 14 /* WAITING_TOP_POS */ + 3 /* B_SCALE */ *
@@ -140,7 +144,7 @@ class Forest extends Zone {
     constructor() {
         super();
         this.canvas = setupCanvas('can-forest');
-        this.palette = PAL_FOREST;
+        this.palette = PAL_FOREST_DARK;
         this.buf = bufForest;
         this.pos = 230;
         this.spawn = 'forest';

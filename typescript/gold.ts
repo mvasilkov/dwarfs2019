@@ -2,6 +2,7 @@
 
 const goldSpawn: [number, string][] = [
     [10, 'autorun'],
+    [20, 'illuminate'],
 ]
 
 let totalGold = 0
@@ -14,6 +15,7 @@ function updateButtons() {
     $setEnabled('btn-covfefe', totalGold >= 10)
     $setEnabled('btn-autorun', totalGold >= 20)
     $setEnabled('btn-fasta', totalGold >= 25)
+    $setEnabled('btn-illuminate', totalGold >= 25)
     $setEnabled('btn-turborun', totalGold >= 30)
     $setEnabled('btn-speedrun', totalGold >= 40)
 }
