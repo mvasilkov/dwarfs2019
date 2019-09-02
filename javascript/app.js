@@ -18,6 +18,10 @@ function update(t) {
             dwarfsWaiting.push(dwarf);
         if (dwarf.pos > 0 && dwarf.pos < 160)
             clearedForLanding = 1;
+        else if (dwarfAle &&
+            dwarf.purpose != 3 /* ALE */ &&
+            dwarf.pos > 250 && dwarf.pos < 670)
+            dwarf.haveFun();
     }
     $setEnabled('btn-adventure', dwarfsWaiting.length);
     if (hasAutorun) {

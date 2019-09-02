@@ -14,6 +14,7 @@ class Dwarf {
         this.purpose = 0 /* NONE */;
         this.turnBack = false;
         this.height = groundLevel;
+        this.drunkSpeed = 0.1 - Math.random() * 0.05;
     }
     _render(palette, canvas) {
         for (let y = 0; y < B_DWARF.length; ++y) {
@@ -56,9 +57,9 @@ class Dwarf {
                 }
                 break;
             case 3 /* ALE */:
-                if (Math.random() < 0.005)
+                if (Math.random() < 0.004)
                     this.turnBack = !this.turnBack;
-                this.pos += 0.1 * (this.turnBack ? -speed : speed);
+                this.pos += this.drunkSpeed * (this.turnBack ? -speed : speed);
                 if (this.pos < 250) {
                     this.pos = 250;
                     this.turnBack = false;
@@ -67,42 +68,32 @@ class Dwarf {
                     this.pos = 670;
                     this.turnBack = true;
                 }
-                const heightChange = Math.random();
-                if (heightChange < 0.01) {
-                    if (heightChange < 0.005) {
-                        this.height = clamp(this.height + 1, 50, 85);
-                    }
-                    else {
-                        this.height = clamp(this.height - 1, 50, 85);
-                    }
-                }
                 break;
         }
+    }
+    haveFun(setPos) {
+        if (setPos) {
+            this.pos = (0 | Math.random() * 420) + 250;
+            this.prevPos = this.pos;
+            this.turnBack = Math.random() < 0.5;
+        }
+        this.gold = 0;
+        this.purpose = 3 /* ALE */;
+        this.height = (0 | Math.random() * 35) + 50;
     }
 }
 const dwarfs = [];
 let dwarfsWaiting = [];
 function dwarfsFoundAle() {
     dwarfAle = true;
-    dwarfs.forEach(dwarf => {
-        if (dwarf.purpose == 3 /* ALE */)
-            return;
-        dwarf.pos = (0 | Math.random() * 420) + 250;
-        dwarf.prevPos = dwarf.pos;
-        dwarf.gold = 0;
-        dwarf.purpose = 3 /* ALE */;
-        dwarf.turnBack = Math.random() < 0.5;
-        dwarf.height = (0 | Math.random() * 35) + 50;
-    });
+    dwarfs.forEach(dwarf => dwarf.haveFun(true));
 }
 function dwarfsNoAle() {
     dwarfAle = false;
-    dwarfs.forEach(dwarf => {
-        dwarf.pos = 0;
-        dwarf.prevPos = 0;
-        dwarf.gold = 0;
-        dwarf.purpose = 0 /* NONE */;
-        dwarf.turnBack = false;
-        dwarf.height = groundLevel;
-    });
+    const survivors = dwarfs.filter(dwarf => dwarf.pos < 230 || dwarf.pos > 690).length;
+    dwarfs.splice(0, dwarfs.length);
+    for (let n = 0; n < Math.max(survivors, 3); ++n)
+        dwarfs.push(new Dwarf);
+    draftCost = 3;
+    draftCostPrev = 2;
 }

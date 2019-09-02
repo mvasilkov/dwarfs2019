@@ -11,8 +11,6 @@ $click('btn-draft', () => {
     dwarfs.push(new Dwarf)
     $setContent('dwarf-count', dwarfs.length)
     $('dwarf-plural').style.display = dwarfs.length == 1 ? 'none' : 'inline'
-
-    if (dwarfAle) dwarfsFoundAle()
 })
 
 $click('btn-covfefe', () => {

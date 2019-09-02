@@ -24,6 +24,10 @@ function update(t: number) {
 
         if (dwarf.pos > 0 && dwarf.pos < 160)
             clearedForLanding = 1
+        else if (dwarfAle &&
+            dwarf.purpose != DwarfsPurpose.ALE &&
+            dwarf.pos > 250 && dwarf.pos < 670)
+            dwarf.haveFun()
     }
 
     $setEnabled('btn-adventure', dwarfsWaiting.length)

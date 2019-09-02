@@ -58,7 +58,7 @@ function renderForest(palette, title) {
 const bufForest = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderForest(PAL_FOREST_DARK, 'Black Forest'));
 const bufForestLit = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderForest(PAL_FOREST, 'Reasonably Lit Forest'));
 const bufForestKegs = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
-    renderForest(PAL_FOREST, '       Lit Forest')(canvas);
+    renderForest(PAL_FOREST, '       Ale Forest')(canvas);
     canvas.drawImage(bufKeg, 20, 18);
     canvas.drawImage(bufKeg, 47, 18);
     canvas.drawImage(bufKeg, 74, 16);

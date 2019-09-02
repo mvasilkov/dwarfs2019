@@ -75,7 +75,7 @@ const bufForestLit: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
 
 const bufForestKegs: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
     canvas => {
-        renderForest(PAL_FOREST, '       Lit Forest')(canvas)
+        renderForest(PAL_FOREST, '       Ale Forest')(canvas)
         canvas.drawImage(bufKeg, 20, 18)
         canvas.drawImage(bufKeg, 47, 18)
         canvas.drawImage(bufKeg, 74, 16)
