@@ -11,6 +11,15 @@ const bufGold = renderBuf(3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 9, canvas => {
         }
     }
 });
+const bufKeg = renderBuf(24, 30, canvas => {
+    for (let y = 0; y < B_KEG.length; ++y) {
+        for (let x = 0; x < 12; ++x) {
+            const n = B_KEG[y] >> 2 * (11 - x) & 0b11;
+            canvas.fillStyle = '#' + PAL_FOREST[n];
+            canvas.fillRect(2 * x, 2 * y, 2, 2);
+        }
+    }
+});
 const bufFortress = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_FORTRESS[3];
     canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -48,6 +57,13 @@ function renderForest(palette, title) {
 }
 const bufForest = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderForest(PAL_FOREST_DARK, 'Black Forest'));
 const bufForestLit = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderForest(PAL_FOREST, 'Reasonably Lit Forest'));
+const bufForestKegs = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
+    renderForest(PAL_FOREST, '       Lit Forest')(canvas);
+    canvas.drawImage(bufKeg, 20, 18);
+    canvas.drawImage(bufKeg, 47, 18);
+    canvas.drawImage(bufKeg, 74, 16);
+    canvas.drawImage(bufKeg, 101, 16);
+});
 const bufTreasure = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_TREASURE[3];
     canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);

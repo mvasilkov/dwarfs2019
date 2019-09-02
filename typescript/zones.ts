@@ -14,6 +14,16 @@ const bufGold: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 8, Inline.B_SCALE 
         }
     })
 
+const bufKeg: HTMLCanvasElement = renderBuf(24, 30, canvas => {
+    for (let y = 0; y < B_KEG.length; ++y) {
+        for (let x = 0; x < 12; ++x) {
+            const n = B_KEG[y] >> 2 * (11 - x) & 0b11
+            canvas.fillStyle = '#' + PAL_FOREST[n]
+            canvas.fillRect(2 * x, 2 * y, 2, 2)
+        }
+    }
+})
+
 const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
     canvas => {
         canvas.fillStyle = '#' + PAL_FORTRESS[3]
@@ -62,6 +72,15 @@ const bufForest: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
 
 const bufForestLit: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
     renderForest(PAL_FOREST, 'Reasonably Lit Forest'))
+
+const bufForestKegs: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    canvas => {
+        renderForest(PAL_FOREST, '       Lit Forest')(canvas)
+        canvas.drawImage(bufKeg, 20, 18)
+        canvas.drawImage(bufKeg, 47, 18)
+        canvas.drawImage(bufKeg, 74, 16)
+        canvas.drawImage(bufKeg, 101, 16)
+    })
 
 const bufTreasure: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
     canvas => {
