@@ -11,6 +11,8 @@ $click('btn-draft', () => {
     dwarfs.push(new Dwarf)
     $setContent('dwarf-count', dwarfs.length)
     $('dwarf-plural').style.display = dwarfs.length == 1 ? 'none' : 'inline'
+
+    if (dwarfAle) dwarfsFoundAle()
 })
 
 $click('btn-covfefe', () => {
@@ -52,4 +54,31 @@ $click('btn-illuminate', () => {
     forest.buf = bufForestLit
     speedForest *= 1.3
     $despawn('illuminate')
+
+    setTimeout(() => {
+        // pause_game()
+        forest.buf = bufForestKegs
+        dwarfsFoundAle()
+        $spawnModal('kegs')
+    }, 10000)
+})
+
+$click('btn-continue', () => {
+    $despawnModal('kegs', () => {
+        // unpause_game()
+        $spawn('orbital')
+    })
+})
+
+$click('btn-orbital', () => {
+    // pause_game()
+    $spawnModal('nuke')
+})
+
+$click('btn-continue2', () => {
+    $despawnModal('nuke', () => {
+        dwarfsNoAle()
+        // unpause_game()
+        $despawn('orbital')
+    })
 })

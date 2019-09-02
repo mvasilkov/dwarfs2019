@@ -4,6 +4,7 @@ let dwarfSpeed = 10;
 let speedFortress = 0.9;
 let speedForest = 0.59;
 let speedTreasure = 0.9;
+let dwarfAle = false;
 const cacheDwarfs = {};
 class Dwarf {
     constructor() {
@@ -12,6 +13,7 @@ class Dwarf {
         this.gold = 0;
         this.purpose = 0 /* NONE */;
         this.turnBack = false;
+        this.height = groundLevel;
     }
     _render(palette, canvas) {
         for (let y = 0; y < B_DWARF.length; ++y) {
@@ -53,8 +55,54 @@ class Dwarf {
                     this.turnBack = false;
                 }
                 break;
+            case 3 /* ALE */:
+                if (Math.random() < 0.005)
+                    this.turnBack = !this.turnBack;
+                this.pos += 0.1 * (this.turnBack ? -speed : speed);
+                if (this.pos < 250) {
+                    this.pos = 250;
+                    this.turnBack = false;
+                }
+                else if (this.pos > 670) {
+                    this.pos = 670;
+                    this.turnBack = true;
+                }
+                const heightChange = Math.random();
+                if (heightChange < 0.01) {
+                    if (heightChange < 0.005) {
+                        this.height = clamp(this.height + 1, 50, 85);
+                    }
+                    else {
+                        this.height = clamp(this.height - 1, 50, 85);
+                    }
+                }
+                break;
         }
     }
 }
 const dwarfs = [];
 let dwarfsWaiting = [];
+function dwarfsFoundAle() {
+    dwarfAle = true;
+    dwarfs.forEach(dwarf => {
+        if (dwarf.purpose == 3 /* ALE */)
+            return;
+        dwarf.pos = (0 | Math.random() * 420) + 250;
+        dwarf.prevPos = dwarf.pos;
+        dwarf.gold = 0;
+        dwarf.purpose = 3 /* ALE */;
+        dwarf.turnBack = Math.random() < 0.5;
+        dwarf.height = (0 | Math.random() * 35) + 50;
+    });
+}
+function dwarfsNoAle() {
+    dwarfAle = false;
+    dwarfs.forEach(dwarf => {
+        dwarf.pos = 0;
+        dwarf.prevPos = 0;
+        dwarf.gold = 0;
+        dwarf.purpose = 0 /* NONE */;
+        dwarf.turnBack = false;
+        dwarf.height = groundLevel;
+    });
+}

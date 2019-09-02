@@ -83,6 +83,8 @@ class Zone {
         // this.canvas.fillStyle = '#' + this.palette[3]
         // this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
         this.canvas.drawImage(this.buf, 0, 0);
+        if (dwarfAle)
+            dwarfs.sort((a, b) => a.height - b.height);
         for (let dwarf of dwarfs) {
             if (dwarf.pos == 0 && dwarf.prevPos == 0)
                 continue;
@@ -99,7 +101,7 @@ class Zone {
                 this.canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, groundLevel - 40);
             if (dwarf.turnBack)
                 this.canvas.scale(-1, 1);
-            this.canvas.drawImage(dwarf.buf(this.palette), -4 * 3 /* B_SCALE */, groundLevel);
+            this.canvas.drawImage(dwarf.buf(this.palette), -4 * 3 /* B_SCALE */, dwarf.height);
             this.canvas.restore();
         }
         if (this.renderWaiting && dwarfsWaiting.length) {

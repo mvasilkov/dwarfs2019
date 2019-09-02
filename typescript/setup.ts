@@ -115,9 +115,22 @@ function $spawn(a: string) {
     $(a).className = 'obj spawn'
 }
 
-function $despawn(a: string) {
+function $despawn(a: string, done?: Function) {
     $(a).className = 'obj despawn'
     setTimeout(() => {
         $(a).style.display = 'none'
+        if (done) done()
     }, 500)
+}
+
+function $spawnModal(a: string) {
+    $('fullscreen').style.display = 'block'
+    $spawn(a)
+}
+
+function $despawnModal(a: string, done?: Function) {
+    $despawn(a, () => {
+        $('fullscreen').style.display = 'none'
+        if (done) done()
+    })
 }

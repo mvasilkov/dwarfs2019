@@ -112,6 +112,8 @@ abstract class Zone {
         // this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
         this.canvas.drawImage(this.buf, 0, 0)
 
+        if (dwarfAle) dwarfs.sort((a, b) => a.height - b.height)
+
         for (let dwarf of dwarfs) {
             if (dwarf.pos == 0 && dwarf.prevPos == 0) continue
             const pos = easingPos(lerp(dwarf.prevPos, dwarf.pos, t)) - this.pos
@@ -126,7 +128,7 @@ abstract class Zone {
                 this.canvas.drawImage(bufGold, -4 * Inline.B_SCALE, groundLevel - 40)
             if (dwarf.turnBack)
                 this.canvas.scale(-1, 1)
-            this.canvas.drawImage(dwarf.buf(this.palette), -4 * Inline.B_SCALE, groundLevel)
+            this.canvas.drawImage(dwarf.buf(this.palette), -4 * Inline.B_SCALE, dwarf.height)
             this.canvas.restore()
         }
 

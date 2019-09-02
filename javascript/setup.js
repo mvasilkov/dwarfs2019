@@ -88,9 +88,22 @@ function $click(a, b) {
 function $spawn(a) {
     $(a).className = 'obj spawn';
 }
-function $despawn(a) {
+function $despawn(a, done) {
     $(a).className = 'obj despawn';
     setTimeout(() => {
         $(a).style.display = 'none';
+        if (done)
+            done();
     }, 500);
+}
+function $spawnModal(a) {
+    $('fullscreen').style.display = 'block';
+    $spawn(a);
+}
+function $despawnModal(a, done) {
+    $despawn(a, () => {
+        $('fullscreen').style.display = 'none';
+        if (done)
+            done();
+    });
 }

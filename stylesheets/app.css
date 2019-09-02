@@ -14,6 +14,8 @@ b {
 
 canvas {
     display: block;
+    image-rendering: optimizespeed;
+    image-rendering: pixelated;
 }
 
 h1 {
@@ -72,7 +74,7 @@ h1 b {
     width: 440px;
 }
 
-.controls a {
+.controls a, .textbox a {
     background: #f84284;
     border-radius: 2px;
     box-shadow: 0 8px 20px rgba(248, 66, 132, 0.4);
@@ -87,6 +89,7 @@ h1 b {
     text-decoration: none;
     text-transform: uppercase;
     touch-action: manipulation;
+    -webkit-user-drag: none;
 }
 
 .controls a:focus {
@@ -104,10 +107,37 @@ h1 b {
     pointer-events: none;
 }
 
-#dwarf-plural, #gold-title {
+.textbox {
+    background: #fff;
+    font-size: 18px;
+    margin: 100px 60px 0;
+    outline: 2px solid #fff;
+    outline-offset: 1px;
+    padding: 20px;
+    width: 525px; /* 744px */
+}
+
+.textbox a {
+    margin: 0 20px 10px;
+}
+
+.textbox p {
+    margin: 0 0 21px;
+}
+
+#dwarf-plural, #gold-title, #fullscreen {
     display: none;
 }
 
 #dwarf-plural {
     color: #7b9278;
+}
+
+#fullscreen {
+    background: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
