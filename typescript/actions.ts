@@ -79,6 +79,7 @@ $click('btn-continue2', () => {
 
         orbital(() => {
             dwarfsNoAle()
+            forest.palette = PAL_WASTELAND
             forest.buf = bufWasteland
             paused = false
         })

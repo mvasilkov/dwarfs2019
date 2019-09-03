@@ -82,14 +82,40 @@ const bufForestKegs: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
         canvas.drawImage(bufKeg, 101, 16)
     })
 
-const bufWasteland: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
-    canvas => {
-        canvas.fillStyle = '#' + PAL_FOREST[3]
+function renderWasteland(title: string, features: number): RenderFun {
+    return canvas => {
+        canvas.fillStyle = '#' + PAL_WASTELAND[3]
         canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-        canvas.fillStyle = '#' + PAL_FOREST[1]
-        write('Wasteland', canvas, 20, 20)
-    })
+        canvas.fillStyle = '#' + PAL_WASTELAND[2]
+        for (let n = 0; n < 3; ++n) {
+            write('&', canvas, 120 * n + 48, 50 + (0 | Math.random() * 20))
+        }
+
+        if (features > 0) {
+            canvas.fillStyle = '#' + PAL_WASTELAND[2]
+            canvas.fillRect(0, 90, SCREEN_WIDTH, 24)
+
+            canvas.fillStyle = '#' + PAL_WASTELAND[3]
+            write(' -  -  -  -  -  -  -  - ', canvas, 0, 90)
+        }
+
+        if (features > 1) {
+        }
+
+        canvas.fillStyle = '#' + PAL_WASTELAND[1]
+        write(title, canvas, 20, 20)
+    }
+}
+
+const bufWasteland: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderWasteland('Wasteland', 0))
+
+const bufWastelandRoad: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderWasteland('Country Roads', 1))
+
+const bufWastelandAperture: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderWasteland('Industrial Area', 2))
 
 const bufTreasure: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
     canvas => {
@@ -108,6 +134,32 @@ function easingPos(pos: number): number {
 
 const groundLevel = 70
 
+function renderDwarfs(t: number, canvas: CanvasRenderingContext2D,
+    palette: string[], zonePos: number, k: number): boolean {
+
+    let populated = false
+    if (dwarfAle) dwarfs.sort((a, b) => a.height - b.height)
+
+    for (let dwarf of dwarfs) {
+        if (dwarf.pos == 0 && dwarf.prevPos == 0) continue
+        const pos = easingPos(lerp(dwarf.prevPos, dwarf.pos, t)) - zonePos
+        if (pos < -40 || pos > 500) continue
+        populated = true
+        canvas.save()
+        canvas.translate(pos + 2, 0)
+        if (dwarf.gold)
+            canvas.drawImage(bufGold, -4 * Inline.B_SCALE, groundLevel - 40)
+        if (dwarf.turnBack)
+            canvas.scale(-1, 1)
+        canvas.drawImage(dwarf.buf(palette), -4 * Inline.B_SCALE,
+            Inline.B_SCALE * 11 * (1 - k) + dwarf.height,
+            Inline.B_SCALE * 8, Inline.B_SCALE * 11 * k)
+        canvas.restore()
+    }
+
+    return populated
+}
+
 abstract class Zone {
     abstract canvas: CanvasRenderingContext2D
     abstract palette: string[]
@@ -121,24 +173,9 @@ abstract class Zone {
         // this.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
         this.canvas.drawImage(this.buf, 0, 0)
 
-        if (dwarfAle) dwarfs.sort((a, b) => a.height - b.height)
-
-        for (let dwarf of dwarfs) {
-            if (dwarf.pos == 0 && dwarf.prevPos == 0) continue
-            const pos = easingPos(lerp(dwarf.prevPos, dwarf.pos, t)) - this.pos
-            if (pos < -40 || pos > 500) continue
-            if (this.spawn) {
-                $spawn(this.spawn)
-                this.spawn = undefined
-            }
-            this.canvas.save()
-            this.canvas.translate(pos + 2, 0)
-            if (dwarf.gold)
-                this.canvas.drawImage(bufGold, -4 * Inline.B_SCALE, groundLevel - 40)
-            if (dwarf.turnBack)
-                this.canvas.scale(-1, 1)
-            this.canvas.drawImage(dwarf.buf(this.palette), -4 * Inline.B_SCALE, dwarf.height)
-            this.canvas.restore()
+        if (renderDwarfs(t, this.canvas, this.palette, this.pos, 1) && this.spawn) {
+            $spawn(this.spawn)
+            this.spawn = undefined
         }
 
         if (this.renderWaiting && dwarfsWaiting.length) {

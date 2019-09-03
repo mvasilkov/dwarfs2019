@@ -96,4 +96,6 @@ function dwarfsNoAle() {
         dwarfs.push(new Dwarf);
     draftCost = 3;
     draftCostPrev = 2;
+    $setContent('dwarf-count', dwarfs.length);
+    $setContent('dwarf-cost', draftCost);
 }

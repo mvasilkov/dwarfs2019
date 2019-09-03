@@ -57,28 +57,15 @@ function orbital(done) {
     let start = Date.now();
     function renderOrbital() {
         const now = Date.now();
-        if (now - start >= 2000) {
+        if (now - start >= 2000 /* ORBITAL_DURATION */) {
             done();
             return;
         }
-        const k = (2000 + start - now) / 2000;
         requestAnimationFrame(renderOrbital);
         paletteIndex = (paletteIndex + 1) % 4;
         forest.canvas.fillStyle = '#' + PAL_ORBITAL[paletteIndex];
         forest.canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        for (let dwarf of dwarfs) {
-            if (dwarf.pos == 0 && dwarf.prevPos == 0)
-                continue;
-            const pos = dwarf.pos - forest.pos;
-            if (pos < -40 || pos > 500)
-                continue;
-            forest.canvas.save();
-            forest.canvas.translate(pos + 2, 0);
-            if (dwarf.turnBack)
-                forest.canvas.scale(-1, 1);
-            forest.canvas.drawImage(dwarf.buf(PAL_TREASURE), -4 * 3 /* B_SCALE */, dwarf.height + 3 /* B_SCALE */ * 11 * (1 - k), 3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 11 * k);
-            forest.canvas.restore();
-        }
+        renderDwarfs(1, forest.canvas, PAL_TREASURE, forest.pos, (2000 /* ORBITAL_DURATION */ + start - now) / 2000 /* ORBITAL_DURATION */);
     }
     requestAnimationFrame(renderOrbital);
 }
