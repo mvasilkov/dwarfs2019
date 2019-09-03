@@ -54,7 +54,7 @@ $click('btn-illuminate', () => {
     $despawn('illuminate')
 
     setTimeout(() => {
-        // pause_game()
+        paused = true
         forest.buf = bufForestKegs
         dwarfsFoundAle()
         $spawnModal('kegs')
@@ -63,20 +63,20 @@ $click('btn-illuminate', () => {
 
 $click('btn-continue', () => {
     $despawnModal('kegs', () => {
-        // unpause_game()
+        paused = false
         $spawn('orbital')
     })
 })
 
 $click('btn-orbital', () => {
-    // pause_game()
+    paused = true
     $spawnModal('nuke')
 })
 
 $click('btn-continue2', () => {
     $despawnModal('nuke', () => {
         dwarfsNoAle()
-        // unpause_game()
+        paused = false
         $despawn('orbital')
     })
 })

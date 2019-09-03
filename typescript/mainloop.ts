@@ -1,5 +1,7 @@
 /// <reference path="dwarfs.d.ts" />
 
+let paused = false
+
 const startMainloop = (function () {
     const T = 0.02
 
@@ -8,6 +10,11 @@ const startMainloop = (function () {
 
     function mainloop(now: number) {
         requestAnimationFrame(mainloop)
+
+        if (paused) {
+            then = -1
+            return
+        }
 
         if (then == -1) {
             then = now

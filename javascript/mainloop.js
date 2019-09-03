@@ -1,11 +1,16 @@
 "use strict";
 /// <reference path="dwarfs.d.ts" />
+let paused = false;
 const startMainloop = (function () {
     const T = 0.02;
     let then = -1;
     let t = 0;
     function mainloop(now) {
         requestAnimationFrame(mainloop);
+        if (paused) {
+            then = -1;
+            return;
+        }
         if (then == -1) {
             then = now;
         }
