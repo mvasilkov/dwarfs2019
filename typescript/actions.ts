@@ -75,8 +75,12 @@ $click('btn-orbital', () => {
 
 $click('btn-continue2', () => {
     $despawnModal('nuke', () => {
-        dwarfsNoAle()
-        paused = false
         $despawn('orbital')
+
+        orbital(() => {
+            dwarfsNoAle()
+            forest.buf = bufWasteland
+            paused = false
+        })
     })
 })

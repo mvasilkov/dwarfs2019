@@ -64,6 +64,12 @@ const bufForestKegs = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.drawImage(bufKeg, 74, 16);
     canvas.drawImage(bufKeg, 101, 16);
 });
+const bufWasteland = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
+    canvas.fillStyle = '#' + PAL_FOREST[3];
+    canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    canvas.fillStyle = '#' + PAL_FOREST[1];
+    write('Wasteland', canvas, 20, 20);
+});
 const bufTreasure = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_TREASURE[3];
     canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);

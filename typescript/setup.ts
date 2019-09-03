@@ -8,6 +8,7 @@ const PAL_FOREST_DARK = ['8b956d', 'c4cfa1', '4d533c', '1f1f1f']
 const PAL_FOREST = ['4c625a', '7b9278', 'abc396', 'dbf4b4']
 const PAL_TREASURE = ['2b2b26', '706b66', 'a89f94', 'e0dbcd']
 const PAL_GOLD = ['', 'ffae00', 'ffd800', 'fff000']
+const PAL_ORBITAL = ['ffdc26', 'fdec4a', 'fff699', 'fffee6']
 
 const enum Inline {
     B_SCALE = 3,
