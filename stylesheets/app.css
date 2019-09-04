@@ -33,11 +33,11 @@ h1 b {
 }
 
 .obj {
-    left: -1000;
+    left: -1000px;
     margin: 40px;
     opacity: 0;
     position: absolute;
-    top: -1000;
+    top: -1000px;
     transform: translateY(40px);
     transition: margin-bottom 500ms, opacity 500ms, transform 500ms;
 }

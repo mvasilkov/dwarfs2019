@@ -52,6 +52,16 @@ const bufFactory = renderBuf(3 /* B_SCALE */ * 24, 3 /* B_SCALE */ * 27, canvas 
         canvas.fillRect(3 /* B_SCALE */ * 16, 3 /* B_SCALE */ * (2 * n + 7), 3 /* B_SCALE */, 3 /* B_SCALE */);
     }
 });
+const bufChest = renderBuf(3 /* B_SCALE */ * 20, 3 /* B_SCALE */ * 13, canvas => {
+    for (let a of CHEST) {
+        if (typeof a == 'number') {
+            canvas.fillStyle = '#' + PAL_CHEST[a];
+        }
+        else {
+            canvas.fillRect(3 /* B_SCALE */ * a[0], 3 /* B_SCALE */ * a[1], 3 /* B_SCALE */ * a[2], 3 /* B_SCALE */ * a[3]);
+        }
+    }
+});
 const bufFortress = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_FORTRESS[3];
     canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -124,6 +134,16 @@ const bufWastelandAperture = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderWastel
 const bufTreasure = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_TREASURE[3];
     canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    for (let n = 0; n < 6; ++n) {
+        const x = 35 * n + 24;
+        const y = 86 + (0 | Math.random() * 16);
+        canvas.fillStyle = '#' + PAL_TREASURE[2];
+        canvas.fillRect(x, y, 6, 2);
+        canvas.fillRect(x - 1, y + 2, 6, 2);
+    }
+    canvas.drawImage(bufChest, 230, 62);
+    canvas.drawImage(bufChest, 296, 60);
+    canvas.drawImage(bufChest, 362, 60);
     canvas.fillStyle = '#' + PAL_TREASURE[1];
     write('Fabled Treasure', canvas, 20, 20);
 });

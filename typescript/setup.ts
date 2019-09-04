@@ -10,6 +10,7 @@ const PAL_TREASURE = ['2b2b26', '706b66', 'a89f94', 'e0dbcd']
 const PAL_WASTELAND = ['203c56', '544e68', '8d697a', 'ffd4a3'] // https://lospec.com/palette-list/slso8
 const PAL_GOLD = ['', 'ffae00', 'ffd800', 'fff000']
 const PAL_ORBITAL = ['ffdc26', 'fdec4a', 'fff699', 'fffee6']
+const PAL_CHEST = ['8d684a', 'd1a575', 'ffec94', 'e0dbcd']
 
 const enum Inline {
     B_SCALE = 3,
@@ -107,6 +108,26 @@ const FACTORY: Array<number | number[]> = [
     [14, 5, 5, 2],
 
     2,
+]
+
+const CHEST: Array<number | number[]> = [
+    1,
+    [0, 0, 20, 11],
+
+    0,
+    [9, 0, 2, 4],
+    [0, 6, 20, 1],
+    [0, 11, 20, 2],
+
+    2,
+    [2, 5, 2, 2],
+    [16, 5, 2, 2],
+    [9, 4, 2, 4],
+    [8, 5, 4, 2],
+
+    3,
+    [0, 0, 1, 1],
+    [19, 0, 1, 1],
 ]
 
 /* Utility functions */
