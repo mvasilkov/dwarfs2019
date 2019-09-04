@@ -171,8 +171,14 @@ function renderDwarfs(t, canvas, palette, zonePos, k) {
         populated = true;
         canvas.save();
         canvas.translate(pos + 2, 0);
-        if (dwarf.gold)
-            canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, groundLevel - 40);
+        switch (dwarf.gold) {
+            case 1:
+                canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, groundLevel - 40);
+                break;
+            case 2:
+                canvas.drawImage(bufGold, -20, groundLevel - 30, 16, 18);
+                canvas.drawImage(bufGold, 4, groundLevel - 30, 16, 18);
+        }
         if (dwarf.turnBack)
             canvas.scale(-1, 1);
         canvas.drawImage(dwarf.buf(palette), -4 * 3 /* B_SCALE */, 3 /* B_SCALE */ * 11 * (1 - k) + dwarf.height, 3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 11 * k);
