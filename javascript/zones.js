@@ -20,32 +20,37 @@ const bufKeg = renderBuf(24, 30, canvas => {
         }
     }
 });
+const bufAperture = renderBuf(24, 24, canvas => {
+    for (let y = 0; y < B_APERTURE.length; ++y) {
+        for (let x = 0; x < 12; ++x) {
+            if (B_APERTURE[y] >> (11 - x) & 1) {
+                canvas.fillStyle = '#' + PAL_WASTELAND[0];
+                canvas.fillRect(2 * x, 2 * y, 2, 2);
+            }
+        }
+    }
+    for (let y = B_APERTURE.length; y >= 0; --y) {
+        for (let x = 0; x < 12; ++x) {
+            if (B_APERTURE[y] >> x & 1) {
+                canvas.fillStyle = '#' + PAL_WASTELAND[0];
+                canvas.fillRect(2 * x, 2 * (5 - y) + 12, 2, 2);
+            }
+        }
+    }
+});
 const bufFactory = renderBuf(3 /* B_SCALE */ * 24, 3 /* B_SCALE */ * 27, canvas => {
-    canvas.fillStyle = '#' + PAL_WASTELAND[1];
-    canvas.fillRect(0, 3 /* B_SCALE */ * 18, 3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 27);
-    canvas.fillRect(3 /* B_SCALE */ * 5, 3 /* B_SCALE */ * 7, 3 /* B_SCALE */ * 3, 3 /* B_SCALE */ * 11);
-    canvas.fillRect(3 /* B_SCALE */ * 14, 3 /* B_SCALE */ * 7, 3 /* B_SCALE */ * 3, 3 /* B_SCALE */ * 11);
-    canvas.fillStyle = '#' + PAL_WASTELAND[2];
-    canvas.fillRect(3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 18, 3 /* B_SCALE */ * 24, 3 /* B_SCALE */ * 27);
-    canvas.fillRect(3 /* B_SCALE */ * 8, 3 /* B_SCALE */ * 7, 3 /* B_SCALE */ * 2, 3 /* B_SCALE */ * 11);
-    canvas.fillRect(3 /* B_SCALE */ * 17, 3 /* B_SCALE */ * 7, 3 /* B_SCALE */ * 2, 3 /* B_SCALE */ * 11);
+    for (let a of FACTORY) {
+        if (typeof a == 'number') {
+            canvas.fillStyle = '#' + PAL_WASTELAND[a];
+        }
+        else {
+            canvas.fillRect(3 /* B_SCALE */ * a[0], 3 /* B_SCALE */ * a[1], 3 /* B_SCALE */ * a[2], 3 /* B_SCALE */ * a[3]);
+        }
+    }
     for (let n = 0; n < 6; ++n) {
         canvas.fillRect(3 /* B_SCALE */ * 7, 3 /* B_SCALE */ * (2 * n + 7), 3 /* B_SCALE */, 3 /* B_SCALE */);
         canvas.fillRect(3 /* B_SCALE */ * 16, 3 /* B_SCALE */ * (2 * n + 7), 3 /* B_SCALE */, 3 /* B_SCALE */);
     }
-    // canvas.fillRect(Inline.B_SCALE * 8, 0, Inline.B_SCALE, Inline.B_SCALE)
-    canvas.fillRect(3 /* B_SCALE */ * 6, 3 /* B_SCALE */ * 2, 3 /* B_SCALE */, 3 /* B_SCALE */);
-    canvas.fillRect(3 /* B_SCALE */ * 7, 3 /* B_SCALE */ * 3, 3 /* B_SCALE */, 3 /* B_SCALE */);
-    // canvas.fillRect(Inline.B_SCALE * 16, 0, Inline.B_SCALE, Inline.B_SCALE)
-    canvas.fillRect(3 /* B_SCALE */ * 15, 3 /* B_SCALE */ * 1, 3 /* B_SCALE */, 3 /* B_SCALE */);
-    canvas.fillRect(3 /* B_SCALE */ * 17, 3 /* B_SCALE */ * 2, 3 /* B_SCALE */, 3 /* B_SCALE */);
-    canvas.fillRect(3 /* B_SCALE */ * 16, 3 /* B_SCALE */ * 3, 3 /* B_SCALE */, 3 /* B_SCALE */);
-    canvas.fillStyle = '#' + PAL_WASTELAND[0];
-    canvas.fillRect(3 /* B_SCALE */ * 10, 3 /* B_SCALE */ * 22, 3 /* B_SCALE */ * 3, 3 /* B_SCALE */ * 5);
-    canvas.fillRect(3 /* B_SCALE */ * 16, 3 /* B_SCALE */ * 22, 3 /* B_SCALE */ * 2, 3 /* B_SCALE */ * 3);
-    canvas.fillRect(3 /* B_SCALE */ * 20, 3 /* B_SCALE */ * 22, 3 /* B_SCALE */ * 2, 3 /* B_SCALE */ * 3);
-    canvas.fillRect(3 /* B_SCALE */ * 5, 3 /* B_SCALE */ * 5, 3 /* B_SCALE */ * 5, 3 /* B_SCALE */ * 2);
-    canvas.fillRect(3 /* B_SCALE */ * 14, 3 /* B_SCALE */ * 5, 3 /* B_SCALE */ * 5, 3 /* B_SCALE */ * 2);
 });
 const bufFortress = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.fillStyle = '#' + PAL_FORTRESS[3];
@@ -107,6 +112,7 @@ function renderWasteland(title, features) {
         }
         if (features > 1) {
             canvas.drawImage(bufFactory, 368, 0);
+            canvas.drawImage(bufAperture, 310, 18);
         }
         canvas.fillStyle = '#' + PAL_WASTELAND[1];
         write(title, canvas, 20, 20);

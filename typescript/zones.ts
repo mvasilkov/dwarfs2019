@@ -24,38 +24,41 @@ const bufKeg: HTMLCanvasElement = renderBuf(24, 30, canvas => {
     }
 })
 
+const bufAperture: HTMLCanvasElement = renderBuf(24, 24, canvas => {
+    for (let y = 0; y < B_APERTURE.length; ++y) {
+        for (let x = 0; x < 12; ++x) {
+            if (B_APERTURE[y] >> (11 - x) & 1) {
+                canvas.fillStyle = '#' + PAL_WASTELAND[0]
+                canvas.fillRect(2 * x, 2 * y, 2, 2)
+            }
+        }
+    }
+    for (let y = B_APERTURE.length; y >= 0; --y) {
+        for (let x = 0; x < 12; ++x) {
+            if (B_APERTURE[y] >> x & 1) {
+                canvas.fillStyle = '#' + PAL_WASTELAND[0]
+                canvas.fillRect(2 * x, 2 * (5 - y) + 12, 2, 2)
+            }
+        }
+    }
+})
+
 const bufFactory: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 24, Inline.B_SCALE * 27,
     canvas => {
-        canvas.fillStyle = '#' + PAL_WASTELAND[1]
-        canvas.fillRect(0, Inline.B_SCALE * 18, Inline.B_SCALE * 8, Inline.B_SCALE * 27)
-        canvas.fillRect(Inline.B_SCALE * 5, Inline.B_SCALE * 7, Inline.B_SCALE * 3, Inline.B_SCALE * 11)
-        canvas.fillRect(Inline.B_SCALE * 14, Inline.B_SCALE * 7, Inline.B_SCALE * 3, Inline.B_SCALE * 11)
-
-        canvas.fillStyle = '#' + PAL_WASTELAND[2]
-        canvas.fillRect(Inline.B_SCALE * 8, Inline.B_SCALE * 18, Inline.B_SCALE * 24, Inline.B_SCALE * 27)
-        canvas.fillRect(Inline.B_SCALE * 8, Inline.B_SCALE * 7, Inline.B_SCALE * 2, Inline.B_SCALE * 11)
-        canvas.fillRect(Inline.B_SCALE * 17, Inline.B_SCALE * 7, Inline.B_SCALE * 2, Inline.B_SCALE * 11)
+        for (let a of FACTORY) {
+            if (typeof a == 'number') {
+                canvas.fillStyle = '#' + PAL_WASTELAND[a]
+            }
+            else {
+                canvas.fillRect(Inline.B_SCALE * a[0], Inline.B_SCALE * a[1],
+                    Inline.B_SCALE * a[2], Inline.B_SCALE * a[3])
+            }
+        }
 
         for (let n = 0; n < 6; ++n) {
             canvas.fillRect(Inline.B_SCALE * 7, Inline.B_SCALE * (2 * n + 7), Inline.B_SCALE, Inline.B_SCALE)
             canvas.fillRect(Inline.B_SCALE * 16, Inline.B_SCALE * (2 * n + 7), Inline.B_SCALE, Inline.B_SCALE)
         }
-
-        // canvas.fillRect(Inline.B_SCALE * 8, 0, Inline.B_SCALE, Inline.B_SCALE)
-        canvas.fillRect(Inline.B_SCALE * 6, Inline.B_SCALE * 2, Inline.B_SCALE, Inline.B_SCALE)
-        canvas.fillRect(Inline.B_SCALE * 7, Inline.B_SCALE * 3, Inline.B_SCALE, Inline.B_SCALE)
-
-        // canvas.fillRect(Inline.B_SCALE * 16, 0, Inline.B_SCALE, Inline.B_SCALE)
-        canvas.fillRect(Inline.B_SCALE * 15, Inline.B_SCALE * 1, Inline.B_SCALE, Inline.B_SCALE)
-        canvas.fillRect(Inline.B_SCALE * 17, Inline.B_SCALE * 2, Inline.B_SCALE, Inline.B_SCALE)
-        canvas.fillRect(Inline.B_SCALE * 16, Inline.B_SCALE * 3, Inline.B_SCALE, Inline.B_SCALE)
-
-        canvas.fillStyle = '#' + PAL_WASTELAND[0]
-        canvas.fillRect(Inline.B_SCALE * 10, Inline.B_SCALE * 22, Inline.B_SCALE * 3, Inline.B_SCALE * 5)
-        canvas.fillRect(Inline.B_SCALE * 16, Inline.B_SCALE * 22, Inline.B_SCALE * 2, Inline.B_SCALE * 3)
-        canvas.fillRect(Inline.B_SCALE * 20, Inline.B_SCALE * 22, Inline.B_SCALE * 2, Inline.B_SCALE * 3)
-        canvas.fillRect(Inline.B_SCALE * 5, Inline.B_SCALE * 5, Inline.B_SCALE * 5, Inline.B_SCALE * 2)
-        canvas.fillRect(Inline.B_SCALE * 14, Inline.B_SCALE * 5, Inline.B_SCALE * 5, Inline.B_SCALE * 2)
     })
 
 const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -136,6 +139,7 @@ function renderWasteland(title: string, features: number): RenderFun {
 
         if (features > 1) {
             canvas.drawImage(bufFactory, 368, 0)
+            canvas.drawImage(bufAperture, 310, 18)
         }
 
         canvas.fillStyle = '#' + PAL_WASTELAND[1]
