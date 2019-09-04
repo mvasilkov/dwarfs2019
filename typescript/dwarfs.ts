@@ -7,6 +7,7 @@ const enum DwarfsPurpose {
     ALE,
 }
 
+let dwarfCapacity = 1
 let dwarfSpeed = 10
 let speedFortress = 0.9
 let speedForest = 0.59
@@ -65,7 +66,7 @@ class Dwarf {
                 this.pos += speed
                 if (this.pos >= 2 * SCREEN_WIDTH) {
                     this.pos = 2 * SCREEN_WIDTH
-                    this.gold = 1
+                    this.gold = dwarfCapacity
                     this.purpose = DwarfsPurpose.FORTRESS
                 }
                 break

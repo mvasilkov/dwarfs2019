@@ -61,15 +61,14 @@ const bufFactory: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 24, Inline.B_SC
         }
     })
 
-const bufChest: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 20, Inline.B_SCALE * 13,
+const bufChest: HTMLCanvasElement = renderBuf(40, 26,
     canvas => {
         for (let a of CHEST) {
             if (typeof a == 'number') {
                 canvas.fillStyle = '#' + PAL_CHEST[a]
             }
             else {
-                canvas.fillRect(Inline.B_SCALE * a[0], Inline.B_SCALE * a[1],
-                    Inline.B_SCALE * a[2], Inline.B_SCALE * a[3])
+                canvas.fillRect(2 * a[0], 2 * a[1], 2 * a[2], 2 * a[3])
             }
         }
     })
@@ -183,9 +182,12 @@ const bufTreasure: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
             canvas.fillRect(x - 1, y + 2, 6, 2)
         }
 
-        canvas.drawImage(bufChest, 230, 62)
-        canvas.drawImage(bufChest, 296, 60)
-        canvas.drawImage(bufChest, 362, 60)
+        canvas.drawImage(bufChest, 230, 75)
+        canvas.drawImage(bufChest, 286, 73)
+        canvas.drawImage(bufChest, 342, 73)
+        canvas.drawImage(bufChest, 398, 73)
+        canvas.drawImage(bufChest, 404, 45)
+        canvas.drawImage(bufChest, 400, 17)
 
         canvas.fillStyle = '#' + PAL_TREASURE[1]
         write('Fabled Treasure', canvas, 20, 20)

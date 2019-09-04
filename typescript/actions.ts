@@ -82,6 +82,24 @@ $click('btn-continue2', () => {
             forest.palette = PAL_WASTELAND
             forest.buf = bufWasteland
             paused = false
+
+            goldSpawn.push([10, 'develop'])
+            updateGold(0)
         })
     })
+})
+
+$click('btn-develop', () => {
+    updateGold(-20)
+    forest.buf = bufWastelandRoad
+    speedForest *= 1.3
+    $despawn('develop')
+    $spawn('develop2')
+})
+
+$click('btn-develop2', () => {
+    updateGold(-25)
+    forest.buf = bufWastelandAperture
+    dwarfCapacity *= 2
+    $despawn('develop2')
 })

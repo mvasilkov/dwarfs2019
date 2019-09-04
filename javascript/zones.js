@@ -52,13 +52,13 @@ const bufFactory = renderBuf(3 /* B_SCALE */ * 24, 3 /* B_SCALE */ * 27, canvas 
         canvas.fillRect(3 /* B_SCALE */ * 16, 3 /* B_SCALE */ * (2 * n + 7), 3 /* B_SCALE */, 3 /* B_SCALE */);
     }
 });
-const bufChest = renderBuf(3 /* B_SCALE */ * 20, 3 /* B_SCALE */ * 13, canvas => {
+const bufChest = renderBuf(40, 26, canvas => {
     for (let a of CHEST) {
         if (typeof a == 'number') {
             canvas.fillStyle = '#' + PAL_CHEST[a];
         }
         else {
-            canvas.fillRect(3 /* B_SCALE */ * a[0], 3 /* B_SCALE */ * a[1], 3 /* B_SCALE */ * a[2], 3 /* B_SCALE */ * a[3]);
+            canvas.fillRect(2 * a[0], 2 * a[1], 2 * a[2], 2 * a[3]);
         }
     }
 });
@@ -141,9 +141,12 @@ const bufTreasure = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
         canvas.fillRect(x, y, 6, 2);
         canvas.fillRect(x - 1, y + 2, 6, 2);
     }
-    canvas.drawImage(bufChest, 230, 62);
-    canvas.drawImage(bufChest, 296, 60);
-    canvas.drawImage(bufChest, 362, 60);
+    canvas.drawImage(bufChest, 230, 75);
+    canvas.drawImage(bufChest, 286, 73);
+    canvas.drawImage(bufChest, 342, 73);
+    canvas.drawImage(bufChest, 398, 73);
+    canvas.drawImage(bufChest, 404, 45);
+    canvas.drawImage(bufChest, 400, 17);
     canvas.fillStyle = '#' + PAL_TREASURE[1];
     write('Fabled Treasure', canvas, 20, 20);
 });
