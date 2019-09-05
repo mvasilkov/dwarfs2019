@@ -19,7 +19,10 @@ function updateButtons() {
     $setEnabled('btn-illuminate', totalGold >= 25)
     $setEnabled('btn-develop2', totalGold >= 25)
     $setEnabled('btn-turborun', totalGold >= 30)
+    $setEnabled('btn-genetic', totalGold >= 30)
     $setEnabled('btn-speedrun', totalGold >= 40)
+    $setEnabled('btn-portal', totalGold >= 60)
+    $setEnabled('btn-delorean', totalGold >= 90)
 }
 
 function updateGold(n: number) {

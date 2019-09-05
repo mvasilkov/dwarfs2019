@@ -100,6 +100,50 @@ $click('btn-develop', () => {
 $click('btn-develop2', () => {
     updateGold(-25)
     forest.buf = bufWastelandAperture
-    dwarfCapacity *= 2
+    dwarfCapacity = 2
     $despawn('develop2')
+    $spawn('genetic')
+
+    goldSpawn.push([30, 'portal'])
+    goldSpawn.push([60, 'delorean'])
+    updateGold(0)
+})
+
+$click('btn-genetic', () => {
+    updateGold(-30)
+    dwarfCapacity = 3
+    $despawn('genetic')
+})
+
+$click('btn-portal', () => {
+    updateGold(-60)
+    // dwarfCapacity = 3
+    $despawn('portal')
+})
+
+$click('btn-delorean', () => {
+    updateGold(-90)
+    fortress.buf = bufFortressExit
+    $despawn('delorean')
+    $spawn('back')
+})
+
+$click('btn-back', () => {
+    $despawn('back')
+
+    setTimeout(() => {
+        $despawn('treasure')
+        setTimeout(() => {
+            $despawn('forest')
+            setTimeout(() => {
+                $despawn('fortress')
+                setTimeout(() => {
+                    $despawn('title')
+                    setTimeout(() => {
+                        location.reload()
+                    }, 300)
+                }, 300)
+            }, 300)
+        }, 300)
+    }, 10)
 })

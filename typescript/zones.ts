@@ -73,8 +73,22 @@ const bufChest: HTMLCanvasElement = renderBuf(40, 26,
         }
     })
 
-const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+const bufExit: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 13, Inline.B_SCALE * 13,
     canvas => {
+        for (let y = 0; y < B_EXIT.length; ++y) {
+            for (let x = 0; x < 13; ++x) {
+                const n = B_EXIT[y] >> 2 * x & 0b11
+                if (n < 2) {
+                    canvas.fillStyle = '#' + PAL_FORTRESS[n]
+                    canvas.fillRect(Inline.B_SCALE * x, Inline.B_SCALE * y,
+                        Inline.B_SCALE, Inline.B_SCALE)
+                }
+            }
+        }
+    })
+
+function renderFortress(withExit: boolean): RenderFun {
+    return canvas => {
         canvas.fillStyle = '#' + PAL_FORTRESS[3]
         canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
@@ -97,9 +111,19 @@ const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
             }
         }
 
+        if (withExit)
+            canvas.drawImage(bufExit, 340, 40)
+
         canvas.fillStyle = '#' + PAL_FORTRESS[1]
         write('Dwarf Fortress', canvas, 20, 20)
-    })
+    }
+}
+
+const bufFortress: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderFortress(false))
+
+const bufFortressExit: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
+    renderFortress(true))
 
 function renderForest(palette: string[], title: string): RenderFun {
     return canvas => {
@@ -218,6 +242,8 @@ function renderDwarfs(t: number, canvas: CanvasRenderingContext2D,
             case 1:
                 canvas.drawImage(bufGold, -4 * Inline.B_SCALE, groundLevel - 40)
                 break
+            case 3:
+                canvas.drawImage(bufGold, -8, groundLevel - 48, 16, 18)
             case 2:
                 canvas.drawImage(bufGold, -20, groundLevel - 30, 16, 18)
                 canvas.drawImage(bufGold, 4, groundLevel - 30, 16, 18)

@@ -62,29 +62,46 @@ const bufChest = renderBuf(40, 26, canvas => {
         }
     }
 });
-const bufFortress = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
-    canvas.fillStyle = '#' + PAL_FORTRESS[3];
-    canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    canvas.fillStyle = '#' + PAL_FORTRESS[2];
-    // canvas.fillRect(0, 87, SCREEN_WIDTH, 1)
-    for (let n = 0; n < 23; ++n) {
-        if (n % 2 == 0) {
-            canvas.fillRect(20 * n + 5, 88, 20, 4);
-            canvas.fillRect(20 * n + 4, 92, 20, 4);
-            canvas.fillRect(20 * n + 3, 96, 20, 4);
-            canvas.fillRect(20 * n + 1, 112, 20, 4);
-            canvas.fillRect(20 * n, 116, 20, 4);
-            canvas.fillRect(20 * n - 1, 120, 20, 4);
-        }
-        else {
-            canvas.fillRect(20 * n + 3, 100, 20, 4);
-            canvas.fillRect(20 * n + 2, 104, 20, 4);
-            canvas.fillRect(20 * n + 1, 108, 20, 4);
+const bufExit = renderBuf(3 /* B_SCALE */ * 13, 3 /* B_SCALE */ * 13, canvas => {
+    for (let y = 0; y < B_EXIT.length; ++y) {
+        for (let x = 0; x < 13; ++x) {
+            const n = B_EXIT[y] >> 2 * x & 0b11;
+            if (n < 2) {
+                canvas.fillStyle = '#' + PAL_FORTRESS[n];
+                canvas.fillRect(3 /* B_SCALE */ * x, 3 /* B_SCALE */ * y, 3 /* B_SCALE */, 3 /* B_SCALE */);
+            }
         }
     }
-    canvas.fillStyle = '#' + PAL_FORTRESS[1];
-    write('Dwarf Fortress', canvas, 20, 20);
 });
+function renderFortress(withExit) {
+    return canvas => {
+        canvas.fillStyle = '#' + PAL_FORTRESS[3];
+        canvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        canvas.fillStyle = '#' + PAL_FORTRESS[2];
+        // canvas.fillRect(0, 87, SCREEN_WIDTH, 1)
+        for (let n = 0; n < 23; ++n) {
+            if (n % 2 == 0) {
+                canvas.fillRect(20 * n + 5, 88, 20, 4);
+                canvas.fillRect(20 * n + 4, 92, 20, 4);
+                canvas.fillRect(20 * n + 3, 96, 20, 4);
+                canvas.fillRect(20 * n + 1, 112, 20, 4);
+                canvas.fillRect(20 * n, 116, 20, 4);
+                canvas.fillRect(20 * n - 1, 120, 20, 4);
+            }
+            else {
+                canvas.fillRect(20 * n + 3, 100, 20, 4);
+                canvas.fillRect(20 * n + 2, 104, 20, 4);
+                canvas.fillRect(20 * n + 1, 108, 20, 4);
+            }
+        }
+        if (withExit)
+            canvas.drawImage(bufExit, 340, 40);
+        canvas.fillStyle = '#' + PAL_FORTRESS[1];
+        write('Dwarf Fortress', canvas, 20, 20);
+    };
+}
+const bufFortress = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderFortress(false));
+const bufFortressExit = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, renderFortress(true));
 function renderForest(palette, title) {
     return canvas => {
         canvas.fillStyle = '#' + palette[3];
@@ -175,6 +192,8 @@ function renderDwarfs(t, canvas, palette, zonePos, k) {
             case 1:
                 canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, groundLevel - 40);
                 break;
+            case 3:
+                canvas.drawImage(bufGold, -8, groundLevel - 48, 16, 18);
             case 2:
                 canvas.drawImage(bufGold, -20, groundLevel - 30, 16, 18);
                 canvas.drawImage(bufGold, 4, groundLevel - 30, 16, 18);
