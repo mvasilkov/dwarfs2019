@@ -136,8 +136,10 @@ h1 b {
 #fullscreen {
     background: rgba(0, 0, 0, 0.6);
     bottom: 0;
+    height: 100%;
     left: 0;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
+    width: 100%;
 }
