@@ -22,6 +22,14 @@ function update(t) {
             dwarf.purpose != 3 /* ALE */ &&
             dwarf.pos > 250 && dwarf.pos < 670)
             dwarf.haveFun();
+        else if (dwarfPortal && dwarf.pos > 200 && dwarf.pos < 720) {
+            if (dwarf.purpose == 1 /* TREASURE */) {
+                dwarf.prevPos = dwarf.pos = 720;
+            }
+            else if (dwarf.purpose == 2 /* FORTRESS */) {
+                dwarf.prevPos = dwarf.pos = 200;
+            }
+        }
     }
     $setEnabled('btn-adventure', dwarfsWaiting.length);
     if (hasAutorun) {

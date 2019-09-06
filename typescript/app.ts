@@ -28,6 +28,14 @@ function update(t: number) {
             dwarf.purpose != DwarfsPurpose.ALE &&
             dwarf.pos > 250 && dwarf.pos < 670)
             dwarf.haveFun()
+        else if (dwarfPortal && dwarf.pos > 200 && dwarf.pos < 720) {
+            if (dwarf.purpose == DwarfsPurpose.TREASURE) {
+                dwarf.prevPos = dwarf.pos = 720
+            }
+            else if (dwarf.purpose == DwarfsPurpose.FORTRESS) {
+                dwarf.prevPos = dwarf.pos = 200
+            }
+        }
     }
 
     $setEnabled('btn-adventure', dwarfsWaiting.length)

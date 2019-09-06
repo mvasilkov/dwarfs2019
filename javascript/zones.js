@@ -73,6 +73,17 @@ const bufExit = renderBuf(3 /* B_SCALE */ * 13, 3 /* B_SCALE */ * 13, canvas => 
         }
     }
 });
+function renderPortal(canvas, x0, y0, palette) {
+    for (let y = 0; y < B_PORTAL.length; ++y) {
+        for (let x = 0; x < 6; ++x) {
+            const n = B_PORTAL[y] >> 2 * x & 0b11;
+            if (n != 0b00) {
+                canvas.fillStyle = '#' + palette[n];
+                canvas.fillRect(3 /* B_SCALE */ * x + x0, 3 /* B_SCALE */ * y + y0, 3 /* B_SCALE */, 3 /* B_SCALE */);
+            }
+        }
+    }
+}
 function renderFortress(withExit) {
     return canvas => {
         canvas.fillStyle = '#' + PAL_FORTRESS[3];
@@ -95,7 +106,9 @@ function renderFortress(withExit) {
             }
         }
         if (withExit)
-            canvas.drawImage(bufExit, 340, 40);
+            canvas.drawImage(bufExit, 300, 40);
+        // renderPortal(canvas, 432 - Inline.B_SCALE * 6,
+        //     Inline.groundLevel - Inline.B_SCALE, PAL_PORTAL_BLUE)
         canvas.fillStyle = '#' + PAL_FORTRESS[1];
         write('Dwarf Fortress', canvas, 20, 20);
     };
@@ -164,6 +177,8 @@ const bufTreasure = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT, canvas => {
     canvas.drawImage(bufChest, 398, 73);
     canvas.drawImage(bufChest, 404, 45);
     canvas.drawImage(bufChest, 400, 17);
+    // renderPortal(canvas, 32,
+    //     Inline.groundLevel - Inline.B_SCALE, PAL_PORTAL_ORANGE)
     canvas.fillStyle = '#' + PAL_TREASURE[1];
     write('Fabled Treasure', canvas, 20, 20);
 });
@@ -174,7 +189,6 @@ function easingPos(pos) {
         return 230 * easeOutQuad((pos - 690) / 230) + 690;
     return pos;
 }
-const groundLevel = 70;
 function renderDwarfs(t, canvas, palette, zonePos, k) {
     let populated = false;
     if (dwarfAle)
@@ -190,13 +204,13 @@ function renderDwarfs(t, canvas, palette, zonePos, k) {
         canvas.translate(pos + 2, 0);
         switch (dwarf.gold) {
             case 1:
-                canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, groundLevel - 40);
+                canvas.drawImage(bufGold, -4 * 3 /* B_SCALE */, 70 /* groundLevel */ - 40);
                 break;
             case 3:
-                canvas.drawImage(bufGold, -8, groundLevel - 48, 16, 18);
+                canvas.drawImage(bufGold, -8, 70 /* groundLevel */ - 48, 16, 18);
             case 2:
-                canvas.drawImage(bufGold, -20, groundLevel - 30, 16, 18);
-                canvas.drawImage(bufGold, 4, groundLevel - 30, 16, 18);
+                canvas.drawImage(bufGold, -20, 70 /* groundLevel */ - 30, 16, 18);
+                canvas.drawImage(bufGold, 4, 70 /* groundLevel */ - 30, 16, 18);
         }
         if (dwarf.turnBack)
             canvas.scale(-1, 1);
@@ -223,18 +237,18 @@ class Zone {
                     if (n >= 17 /* WAITING_SIZE_BM */) {
                         pos = 14 /* WAITING_TOP_POS */ + 3 /* B_SCALE */ *
                             (9 * (24 /* WAITING_SIZE */ - n) - 4);
-                        height = groundLevel - 46;
+                        height = 70 /* groundLevel */ - 46;
                     }
                     else {
                         pos = 0 /* WAITING_MIDDLE_POS */ + 3 /* B_SCALE */ *
                             (9 * (17 /* WAITING_SIZE_BM */ - n) - 4);
-                        height = groundLevel - 23;
+                        height = 70 /* groundLevel */ - 23;
                     }
                 }
                 else {
                     pos = -13 /* WAITING_BOTTOM_POS */ + 3 /* B_SCALE */ *
                         (9 * (9 /* WAITING_BOTTOM */ - n) - 4);
-                    height = groundLevel;
+                    height = 70 /* groundLevel */;
                 }
                 this.canvas.drawImage(buf, pos + 2, height);
             }

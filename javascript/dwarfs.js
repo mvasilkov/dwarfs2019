@@ -6,6 +6,7 @@ let speedFortress = 0.9;
 let speedForest = 0.59;
 let speedTreasure = 0.9;
 let dwarfAle = false;
+let dwarfPortal = false;
 const cacheDwarfs = {};
 class Dwarf {
     constructor() {
@@ -14,7 +15,7 @@ class Dwarf {
         this.gold = 0;
         this.purpose = 0 /* NONE */;
         this.turnBack = false;
-        this.height = groundLevel;
+        this.height = 70 /* groundLevel */;
         this.drunkSpeed = 0.1 - Math.random() * 0.05;
     }
     _render(palette, canvas) {

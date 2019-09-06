@@ -87,6 +87,19 @@ const bufExit: HTMLCanvasElement = renderBuf(Inline.B_SCALE * 13, Inline.B_SCALE
         }
     })
 
+function renderPortal(canvas: CanvasRenderingContext2D, x0: number, y0: number, palette: string[]) {
+    for (let y = 0; y < B_PORTAL.length; ++y) {
+        for (let x = 0; x < 6; ++x) {
+            const n = B_PORTAL[y] >> 2 * x & 0b11
+            if (n != 0b00) {
+                canvas.fillStyle = '#' + palette[n]
+                canvas.fillRect(Inline.B_SCALE * x + x0, Inline.B_SCALE * y + y0,
+                    Inline.B_SCALE, Inline.B_SCALE)
+            }
+        }
+    }
+}
+
 function renderFortress(withExit: boolean): RenderFun {
     return canvas => {
         canvas.fillStyle = '#' + PAL_FORTRESS[3]
@@ -112,7 +125,10 @@ function renderFortress(withExit: boolean): RenderFun {
         }
 
         if (withExit)
-            canvas.drawImage(bufExit, 340, 40)
+            canvas.drawImage(bufExit, 300, 40)
+
+        // renderPortal(canvas, 432 - Inline.B_SCALE * 6,
+        //     Inline.groundLevel - Inline.B_SCALE, PAL_PORTAL_BLUE)
 
         canvas.fillStyle = '#' + PAL_FORTRESS[1]
         write('Dwarf Fortress', canvas, 20, 20)
@@ -213,6 +229,9 @@ const bufTreasure: HTMLCanvasElement = renderBuf(SCREEN_WIDTH, SCREEN_HEIGHT,
         canvas.drawImage(bufChest, 404, 45)
         canvas.drawImage(bufChest, 400, 17)
 
+        // renderPortal(canvas, 32,
+        //     Inline.groundLevel - Inline.B_SCALE, PAL_PORTAL_ORANGE)
+
         canvas.fillStyle = '#' + PAL_TREASURE[1]
         write('Fabled Treasure', canvas, 20, 20)
     })
@@ -222,8 +241,6 @@ function easingPos(pos: number): number {
     if (pos > 690) return 230 * easeOutQuad((pos - 690) / 230) + 690
     return pos
 }
-
-const groundLevel = 70
 
 function renderDwarfs(t: number, canvas: CanvasRenderingContext2D,
     palette: string[], zonePos: number, k: number): boolean {
@@ -240,13 +257,13 @@ function renderDwarfs(t: number, canvas: CanvasRenderingContext2D,
         canvas.translate(pos + 2, 0)
         switch (dwarf.gold) {
             case 1:
-                canvas.drawImage(bufGold, -4 * Inline.B_SCALE, groundLevel - 40)
+                canvas.drawImage(bufGold, -4 * Inline.B_SCALE, Inline.groundLevel - 40)
                 break
             case 3:
-                canvas.drawImage(bufGold, -8, groundLevel - 48, 16, 18)
+                canvas.drawImage(bufGold, -8, Inline.groundLevel - 48, 16, 18)
             case 2:
-                canvas.drawImage(bufGold, -20, groundLevel - 30, 16, 18)
-                canvas.drawImage(bufGold, 4, groundLevel - 30, 16, 18)
+                canvas.drawImage(bufGold, -20, Inline.groundLevel - 30, 16, 18)
+                canvas.drawImage(bufGold, 4, Inline.groundLevel - 30, 16, 18)
         }
         if (dwarf.turnBack)
             canvas.scale(-1, 1)
@@ -287,18 +304,18 @@ abstract class Zone {
                     if (n >= Inline.WAITING_SIZE_BM) {
                         pos = Inline.WAITING_TOP_POS + Inline.B_SCALE *
                             (9 * (Inline.WAITING_SIZE - n) - 4)
-                        height = groundLevel - 46
+                        height = Inline.groundLevel - 46
                     }
                     else {
                         pos = Inline.WAITING_MIDDLE_POS + Inline.B_SCALE *
                             (9 * (Inline.WAITING_SIZE_BM - n) - 4)
-                        height = groundLevel - 23
+                        height = Inline.groundLevel - 23
                     }
                 }
                 else {
                     pos = Inline.WAITING_BOTTOM_POS + Inline.B_SCALE *
                         (9 * (Inline.WAITING_BOTTOM - n) - 4)
-                    height = groundLevel
+                    height = Inline.groundLevel
                 }
                 this.canvas.drawImage(buf, pos + 2, height)
             }

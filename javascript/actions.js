@@ -99,7 +99,10 @@ $click('btn-genetic', () => {
 });
 $click('btn-portal', () => {
     updateGold(-60);
-    // dwarfCapacity = 3
+    renderPortal(bufFortress.getContext('2d'), 432 - 3 /* B_SCALE */ * 6, 70 /* groundLevel */ - 3 /* B_SCALE */, PAL_PORTAL_BLUE);
+    renderPortal(bufFortressExit.getContext('2d'), 432 - 3 /* B_SCALE */ * 6, 70 /* groundLevel */ - 3 /* B_SCALE */, PAL_PORTAL_BLUE);
+    renderPortal(bufTreasure.getContext('2d'), 32, 70 /* groundLevel */ - 3 /* B_SCALE */, PAL_PORTAL_ORANGE);
+    dwarfPortal = true;
     $despawn('portal');
 });
 $click('btn-delorean', () => {

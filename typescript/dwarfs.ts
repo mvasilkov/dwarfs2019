@@ -13,6 +13,7 @@ let speedFortress = 0.9
 let speedForest = 0.59
 let speedTreasure = 0.9
 let dwarfAle = false
+let dwarfPortal = false
 
 const cacheDwarfs: { [palette: string]: HTMLCanvasElement } = {}
 
@@ -31,7 +32,7 @@ class Dwarf {
         this.gold = 0
         this.purpose = DwarfsPurpose.NONE
         this.turnBack = false
-        this.height = groundLevel
+        this.height = Inline.groundLevel
         this.drunkSpeed = 0.1 - Math.random() * 0.05
     }
 

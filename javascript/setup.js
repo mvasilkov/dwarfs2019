@@ -10,6 +10,8 @@ const PAL_WASTELAND = ['203c56', '544e68', '8d697a', 'ffd4a3']; // https://lospe
 const PAL_GOLD = ['', 'ffae00', 'ffd800', 'fff000'];
 const PAL_ORBITAL = ['ffdc26', 'fdec4a', 'fff699', 'fffee6'];
 const PAL_CHEST = ['8d684a', 'd1a575', 'ffec94', 'e0dbcd'];
+const PAL_PORTAL_BLUE = ['', '2ea2eb', '2a81cb', 'e0dbcd'];
+const PAL_PORTAL_ORANGE = ['', 'fa6a39', 'e94525', 'fff6d3'];
 const B_DWARF = [
     0b1001010101010110,
     0b0111111111111101,
@@ -59,6 +61,20 @@ const B_APERTURE = [
     0b000000001011,
     0b111100000111,
 ];
+const B_PORTAL = [
+    0b000001010000,
+    0b000111110100,
+    0b000111110100,
+    0b011011111001,
+    0b011111111101,
+    0b011111111101,
+    0b011111111101,
+    0b011111111101,
+    0b011011111001,
+    0b000111110100,
+    0b000111110100,
+    0b000001010000,
+]; // opacity is 0b00
 const B_EXIT = [
     0b11111111010101010111111111,
     0b11111111010101010111111111,
