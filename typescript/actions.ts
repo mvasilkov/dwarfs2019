@@ -155,3 +155,12 @@ $click('btn-back', () => {
         }, 300)
     }, 10)
 })
+
+for (let btn of ['btn-adventure', 'btn-draft', 'btn-covfefe', 'btn-fasta', 'btn-autorun',
+    'btn-turborun', 'btn-speedrun', 'btn-illuminate', 'btn-continue', 'btn-orbital',
+    'btn-continue2', 'btn-develop', 'btn-develop2', 'btn-genetic', 'btn-portal',
+    'btn-delorean', 'btn-back']) {
+    $(btn).oncontextmenu = function (event: MouseEvent) {
+        event.preventDefault()
+    }
+}
