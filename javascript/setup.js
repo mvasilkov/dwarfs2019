@@ -1,5 +1,7 @@
 "use strict";
 /// <reference path="dwarfs.d.ts" />
+const isMobile = !!navigator.userAgent.match(/Android|iPhone|iPad/i);
+let started = false;
 const SCREEN_WIDTH = 464;
 const SCREEN_HEIGHT = 125;
 const PAL_FORTRESS = ['7c3f58', 'eb6b6f', 'f9a875', 'fff6d3'];

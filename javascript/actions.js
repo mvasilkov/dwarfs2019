@@ -3,6 +3,17 @@
 $click('btn-adventure', () => {
     if (dwarfsWaiting.length)
         dwarfsWaiting[0].purpose = 1 /* TREASURE */;
+    if (started)
+        return;
+    if (isMobile) {
+        const d = document.documentElement;
+        const fun = d.requestFullscreen ||
+            d.mozRequestFullScreen ||
+            d.webkitRequestFullScreen;
+        if (typeof fun == 'function')
+            fun.call(d);
+    }
+    started = true;
 });
 $click('btn-draft', () => {
     updateGold(-draftCost);

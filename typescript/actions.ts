@@ -3,6 +3,16 @@
 $click('btn-adventure', () => {
     if (dwarfsWaiting.length)
         dwarfsWaiting[0].purpose = DwarfsPurpose.TREASURE
+
+    if (started) return
+    if (isMobile) {
+        const d = document.documentElement as any
+        const fun = d.requestFullscreen as Function ||
+            d.mozRequestFullScreen as Function ||
+            d.webkitRequestFullScreen as Function
+        if (typeof fun == 'function') fun.call(d)
+    }
+    started = true
 })
 
 $click('btn-draft', () => {
