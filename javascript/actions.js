@@ -5,14 +5,13 @@ $click('btn-adventure', () => {
         dwarfsWaiting[0].purpose = 1 /* TREASURE */;
     if (started)
         return;
-    if (isMobile) {
-        const d = document.documentElement;
-        const fun = d.requestFullscreen ||
-            d.mozRequestFullScreen ||
-            d.webkitRequestFullScreen;
-        if (typeof fun == 'function')
-            fun.call(d);
-    }
+    // if (isMobile) {
+    //     const d = document.documentElement as any
+    //     const fun = d.requestFullscreen as Function ||
+    //         d.mozRequestFullScreen as Function ||
+    //         d.webkitRequestFullScreen as Function
+    //     if (typeof fun == 'function') fun.call(d)
+    // }
     started = true;
 });
 $click('btn-draft', () => {

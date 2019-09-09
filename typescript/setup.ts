@@ -1,6 +1,6 @@
 /// <reference path="dwarfs.d.ts" />
 
-const isMobile = !!navigator.userAgent.match(/Android|iPhone|iPad/i)
+// const isMobile = !!navigator.userAgent.match(/Android|iPhone|iPad/i)
 let started = false
 
 const SCREEN_WIDTH = 464
