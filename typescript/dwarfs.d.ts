@@ -1,3 +1,7 @@
+/// <reference path="reverbgen.ts" />
+/// <reference path="audio.ts" />
+/// <reference path="oborona.ts" />
+
 /// <reference path="setup.ts" />
 /// <reference path="font.ts" />
 /// <reference path="cleartype.ts" />
