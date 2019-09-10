@@ -12,6 +12,11 @@ $click('btn-adventure', () => {
     //         d.webkitRequestFullScreen as Function
     //     if (typeof fun == 'function') fun.call(d)
     // }
+    try {
+        audioInit().then(playLoop);
+    }
+    catch (err) {
+    }
     started = true;
 });
 $click('btn-draft', () => {

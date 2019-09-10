@@ -14,6 +14,12 @@ $click('btn-adventure', () => {
     //     if (typeof fun == 'function') fun.call(d)
     // }
 
+    try {
+        audioInit().then(playLoop)
+    }
+    catch (err) {
+    }
+
     started = true
 })
 
