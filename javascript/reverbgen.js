@@ -1,5 +1,9 @@
 "use strict";
 /// <reference path="dwarfs.d.ts" />
+if (typeof AudioContext == 'undefined') { // Safari
+    window['AudioContext'] = window['webkitAudioContext'];
+    window['OfflineAudioContext'] = window['webkitOfflineAudioContext'];
+}
 function randomInclusive() {
     return Math.floor(Math.random() * 0x20000000000000) / 0x1fffffffffffff;
 }
