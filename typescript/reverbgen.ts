@@ -1,5 +1,10 @@
 /// <reference path="dwarfs.d.ts" />
 
+if (typeof AudioContext == 'undefined') { // Safari
+    window['AudioContext'] = (window as any)['webkitAudioContext']
+    window['OfflineAudioContext'] = (window as any)['webkitOfflineAudioContext']
+}
+
 interface IReverbOptions {
     audioContext?: AudioContext
     sampleRate?: number
