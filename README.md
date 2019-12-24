@@ -4,18 +4,26 @@
 
 ## Installation
 Install dependencies.
-'npm install'
+```
+npm install
+```
 
 Build a compact version in both **build** and **electronapp** folders.
-'./build.sh'
+```
+./build.sh
+```
 
 ### Generating an Electron app
 ![dwarfs](screenshot2.png)
 Enter to the **electronapp** folder.
-'cd electronapp'
+```
+cd electronapp
+```
 
 Install dependencies.
-'npm install'
+```
+npm install
+```
 
 ## Contributors
 
