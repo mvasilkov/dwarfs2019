@@ -14,3 +14,5 @@ npx html-minifier --collapse-whitespace --remove-attribute-quotes \
 	--output build/index.html -- index_build.html
 
 npx terser --parse expression --output build/manifest.json -- manifest.json
+cp icon.png build/icon.png
+cp -r build/. electronapp/
