@@ -9,6 +9,20 @@
         <link rel="shortcut icon" href="icon.png">
     </head>
     <body>
+      <!--<section id="Page1" class="menu">
+        <h1 class="title"><b>Dwarfs:</b> There and Back Again</h1>
+        <div class="controls">
+          <div class="objmenu">
+            <a class="menuitem" href="#" onclick="return show('Page2','Page1');">Play</a>
+          </div>
+          <div class="objmenu">
+            <a class="menuitem" id="about">About</a>
+          </div>
+          <div class="objmenu">
+            <a class="menuitem" id="quit-game">Quit</a>
+          </div>
+        </div>
+      <section id="Page2" class="game"> -->
         <div class="obj" id="title">
             <h1>We have <b id="dwarf-count">1</b>
                 dwarf<b id="dwarf-plural">s</b><span id="gold-title">
@@ -28,58 +42,58 @@
                 <a id="btn-adventure" href="#">Send on Adventure</a>
             </div>
             <div class="obj" id="draft">
-                <a id="btn-draft" href="#" disabled>Draft Another Dwarf<br>
+                <a id="btn-draft" href="#" disabled>Draft Another Dwarf
                     (<b id="dwarf-cost">1</b> gold)</a>
             </div>
             <div class="obj" id="covfefe">
-                <a id="btn-covfefe" href="#" disabled>Hot Coffee<br>
+                <a id="btn-covfefe" href="#" disabled>Hot Coffee
                     (+20% dwarf speed, 10 gold)</a>
             </div>
             <div class="obj" id="autorun">
-                <a id="btn-autorun" href="#" disabled>Automated Adventuring<br>
+                <a id="btn-autorun" href="#" disabled>Automated Adventuring
                     (20 gold)</a>
             </div>
             <div class="obj" id="fasta">
-                <a id="btn-fasta" href="#" disabled>Red Goes Fasta!<br>
+                <a id="btn-fasta" href="#" disabled>Red Goes Fasta!
                     (+10% dwarf speed, 25 gold)</a>
             </div>
             <div class="obj" id="illuminate">
-                <a id="btn-illuminate" href="#" disabled>Illuminate The Forest<br>
+                <a id="btn-illuminate" href="#" disabled>Illuminate The Forest
                     (+30% forest speed, 25 gold)</a>
             </div>
             <div class="obj" id="turborun">
-                <a id="btn-turborun" href="#" disabled>Turbo Button<br>
+                <a id="btn-turborun" href="#" disabled>Turbo Button
                     (2x automation speed, 30 gold)</a>
             </div>
             <div class="obj" id="speedrun">
-                <a id="btn-speedrun" href="#" disabled>Intel Core i9<br>
+                <a id="btn-speedrun" href="#" disabled>Intel Core i9
                     (2x automation speed, 40 gold)</a>
             </div>
             <div class="obj" id="orbital">
-                <a id="btn-orbital" href="#">Make Dwarfs<br>Work Again</a>
+                <a id="btn-orbital" href="#">Make DwarfsWork Again</a>
             </div>
             <div class="obj" id="develop">
-                <a id="btn-develop" href="#" disabled>Develop The Wasteland<br>
+                <a id="btn-develop" href="#" disabled>Develop The Wasteland
                     (+30% wasteland speed, 20 gold)</a>
             </div>
             <div class="obj" id="develop2">
-                <a id="btn-develop2" href="#" disabled>Industrial Revolution<br>
+                <a id="btn-develop2" href="#" disabled>Industrial Revolution
                     (2x carry weight, 25 gold)</a>
             </div>
             <div class="obj" id="genetic">
-                <a id="btn-genetic" href="#" disabled>Genetic Modification<br>
+                <a id="btn-genetic" href="#" disabled>Genetic Modification
                     (+50% carry weight, 30 gold)</a>
             </div>
             <div class="obj" id="portal">
-                <a id="btn-portal" href="#" disabled>Thinking With Portals<br>
+                <a id="btn-portal" href="#" disabled>Thinking With Portals
                     (science, 60 gold)</a>
             </div>
             <div class="obj" id="delorean">
-                <a id="btn-delorean" href="#" disabled>Build a Time Machine<br>
+                <a id="btn-delorean" href="#" disabled>Build a Time Machine
                     (science, 90 gold)</a>
             </div>
             <div class="obj" id="back">
-                <a id="btn-back" href="#">Go Back in Time<br>
+                <a id="btn-back" href="#">Go Back in Time
                     (and fix history)</a>
             </div>
         </div>
@@ -104,6 +118,7 @@
                 </div>
             </div>
         </div>
+      </section>
         <script src="javascript/reverbgen.js"></script>
         <script src="javascript/audio.js"></script>
         <script src="javascript/oborona.js"></script>
@@ -118,5 +133,6 @@
         <script src="javascript/mainloop.js"></script>
         <script src="javascript/app.js"></script>
         <script src="javascript/actions.js"></script>
+        <script src="javascript/pages.js"></script>
     </body>
 </html>

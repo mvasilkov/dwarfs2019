@@ -24,14 +24,38 @@ canvas {
   image-rendering: pixelated;
 }
 
+.menu {
+  text-align: center;
+  display: block;
+}
+
+.objmenu {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.menuitem {
+  max-width: 200px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.game {
+  display: none;
+}
 h1 {
   color: #7b9278;
-  font-size: 62px
+  font-size: 56px;
+  font-weight: 400;
   letter-spacing: -1.5px;
   line-height: 40px;
   margin: 0 0 0 -2px;
   text-shadow: 0 1px 0 #4c625a;
   white-space: nowrap;
+}
+
+.title{
+  font-size: 65px;
+  text-align: center;
+  padding-top: 20px;
 }
 
 h1 b {
@@ -117,6 +141,10 @@ h1 b {
   pointer-events: none;
 }
 
+.price  {
+  font-size: 15px;
+  top: 0;
+}
 .textbox {
   background: #fff;
   font-size: 25px;
